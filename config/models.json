@@ -1,0 +1,694 @@
+{
+  "data": [
+    {
+      "_id": "6a8d94dcfc85735428e54b20",
+      "name": "anthropic/claude-fable-5",
+      "description": "the model 5 adalah model AI berkemampuan tinggi dengan context window hingga 1.000.000 token, sehingga mampu memahami dan mengolah dokumen, percakapan, serta basis pengetahuan berukuran besar dalam satu alur kerja. Dukungan vision memungkinkan model menganalisis gambar, diagram, tangkapan layar, dan elemen visual lainnya, menjadikannya pilihan fleksibel untuk kebutuhan multimodal. Claude Fable 5 dirancang untuk menghasilkan respons yang terstruktur, relevan, dan konsisten dalam pekerjaan profesional jangka panjang.\n\nModel ini cocok untuk developer yang membangun aplikasi berbasis AI, coding assistant, dan agen AI yang perlu mempertahankan konteks selama proses kompleks. Content creator dapat memanfaatkannya untuk riset, penyusunan naskah, pengembangan ide, serta pengelolaan konten berskala besar. Tim bisnis juga dapat menggunakannya untuk analisis dokumen, penyusunan laporan, perencanaan proyek, dan otomasi tugas berulang. Dengan kombinasi kemampuan penalaran, pemrosesan visual, dan kapasitas konteks luas, Anthropic Claude Fable 5 mendukung berbagai workflow produktif dalam satu model.",
+      "modelId": "anthropic/claude-fable-5",
+      "price": 0,
+      "inputPrice": 5,
+      "outputPrice": 25,
+      "cacheWritePrice": 0,
+      "cacheReadPrice": 1,
+      "imageOutputPrice": 0,
+      "capabilities": [
+        "chat",
+        "coding",
+        "tools",
+        "vision"
+      ],
+      "contextWindow": 1000000
+    },
+    {
+      "_id": "6a97793f196dfd0b5addc327",
+      "name": "anthropic/claude-fable-5.1",
+      "description": "Claude Fable 5.1 dari Anthropic adalah model AI canggih dengan context window hingga 1.000.000 token, dukungan vision untuk membaca dan memahami gambar, prompt caching, serta kemampuan reasoning dan coding kelas atas. Model ini dirancang untuk menghasilkan respons akurat, mendalam, dan konsisten dalam menangani instruksi maupun tugas kompleks.\n\nClaude Fable 5.1 cocok untuk developer, AI agent, aplikasi produksi, serta analisis dokumen kompleks seperti laporan, kontrak, dan data visual. Dengan harga yang efisien, model ini cocok untuk kebutuhan AI berskala besar.",
+      "modelId": "anthropic/claude-fable-5.1",
+      "price": 0,
+      "inputPrice": 3,
+      "outputPrice": 12.5,
+      "cacheWritePrice": 0,
+      "cacheReadPrice": 0.3,
+      "imageOutputPrice": 0,
+      "capabilities": [
+        "chat",
+        "coding",
+        "openclaw"
+      ],
+      "contextWindow": 1000000
+    },
+    {
+      "_id": "6af6b007e9b012ea84c5ea73",
+      "name": "anthropic/claude-fable-5.2",
+      "description": "Claude Fable 5.2 adalah model AI paling canggih dari Anthropic, yang dirancang untuk menangani pekerjaan teknis dengan tingkat kesulitan tinggi.\n\nDibandingkan Fable 5.1, model ini membawa peningkatan signifikan dalam kemampuan coding, penalaran (reasoning), dan pemahaman visual.\n\nDalam pengujian sebelum dirilis, Fable 5.2 berhasil menyelesaikan migrasi software yang sebelumnya dianggap hampir mustahil, merancang perangkat elektronik yang benar-benar berfungsi dari nol, hingga membantu memecahkan persoalan terbuka di bidang fisika dan matematika.\n\nSelain lebih unggul secara teknis, Fable 5.2 juga mampu memberikan penjelasan yang lebih jelas dan mudah dipahami, dengan kecepatan menghasilkan output hingga 30% lebih tinggi dibandingkan Fable 5.1.\n\nFable 5.2 menggunakan Adaptive Extended Thinking yang selalu aktif, dengan tingkat reasoning mulai dari low hingga max (default: high). Model ini juga mampu mempertahankan proses reasoning antarpercakapan, sehingga lebih konsisten saat mengerjakan tugas kompleks yang membutuhkan banyak tahapan.\n\nMeski demikian, Anthropic tetap merekomendasikan Opus 5.5 untuk kebutuhan coding dan pekerjaan sehari-hari, sementara Fable 5.2 ditujukan untuk tantangan yang jauh lebih kompleks, ambisius, dan membutuhkan eksplorasi mendalam tanpa solusi yang sudah jelas.",
+      "modelId": "anthropic/claude-fable-5.2",
+      "price": 0,
+      "inputPrice": 3,
+      "outputPrice": 12,
+      "cacheWritePrice": 0,
+      "cacheReadPrice": 0.6,
+      "imageOutputPrice": 0,
+      "capabilities": [
+        "chat",
+        "coding",
+        "openclaw",
+        "hermes",
+        "vision"
+      ],
+      "contextWindow": 1000000
+    },
+    {
+      "_id": "6a22464489400ece0d3613c0",
+      "name": "anthropic/claude-opus-4.6",
+      "description": "Opus 4.6 is Anthropic’s strongest model for coding and long-running professional tasks. It is built for agents that operate across entire workflows rather than single prompts, making it especially effective for large codebases, complex refactors, and multi-step debugging that unfolds over time. The model shows deeper contextual understanding, stronger problem decomposition, and greater reliability on hard engineering tasks than prior generations.\n\nBeyond coding, Opus 4.6 excels at sustained knowledge work. It produces near-production-ready documents, plans, and analyses in a single pass, and maintains coherence across very long outputs and extended sessions. This makes it a strong default for tasks that require persistence, judgment, and follow-through, such as technical design, migration planning, and end-to-end project execution.",
+      "modelId": "anthropic/claude-opus-4.6",
+      "price": 0,
+      "inputPrice": 2.5,
+      "outputPrice": 12.5,
+      "cacheWritePrice": 3.15,
+      "cacheReadPrice": 0.25,
+      "imageOutputPrice": 0,
+      "capabilities": [
+        "chat",
+        "coding",
+        "openclaw",
+        "vision"
+      ],
+      "contextWindow": 262656
+    },
+    {
+      "_id": "6a263838df3133a2838ba7a7",
+      "name": "anthropic/claude-opus-4.7",
+      "description": "Opus 4.7 is Anthropic’s strongest model for coding and long-running professional tasks. It is built for agents that operate across entire workflows rather than single prompts, making it especially effective for large codebases, complex refactors, and multi-step debugging that unfolds over time. The model shows deeper contextual understanding, stronger problem decomposition, and greater reliability on hard engineering tasks than prior generations.\n\nBeyond coding, Opus 4.7 excels at sustained knowledge work. It produces near-production-ready documents, plans, and analyses in a single pass, and maintains coherence across very long outputs and extended sessions. This makes it a strong default for tasks that require persistence, judgment, and follow-through, such as technical design, migration planning, and end-to-end project execution.",
+      "modelId": "anthropic/claude-opus-4.7",
+      "price": 0,
+      "inputPrice": 2.5,
+      "outputPrice": 12.5,
+      "cacheWritePrice": 3.15,
+      "cacheReadPrice": 0.25,
+      "imageOutputPrice": 0,
+      "capabilities": [
+        "chat",
+        "coding",
+        "openclaw",
+        "vision"
+      ],
+      "contextWindow": 1000000
+    },
+    {
+      "_id": "6a23fbe8df3133a2838ba6ee",
+      "name": "anthropic/claude-opus-4.8",
+      "description": "Opus 4.8 is Anthropic’s strongest model for coding and long-running professional tasks. It is built for agents that operate across entire workflows rather than single prompts, making it especially effective for large codebases, complex refactors, and multi-step debugging that unfolds over time. The model shows deeper contextual understanding, stronger problem decomposition, and greater reliability on hard engineering tasks than prior generations.\n\nBeyond coding, Opus 4.8 excels at sustained knowledge work. It produces near-production-ready documents, plans, and analyses in a single pass, and maintains coherence across very long outputs and extended sessions. This makes it a strong default for tasks that require persistence, judgment, and follow-through, such as technical design, migration planning, and end-to-end project execution.",
+      "modelId": "anthropic/claude-opus-4.8",
+      "price": 0,
+      "inputPrice": 2.5,
+      "outputPrice": 12.5,
+      "cacheWritePrice": 3.15,
+      "cacheReadPrice": 0.25,
+      "imageOutputPrice": 0,
+      "capabilities": [
+        "chat",
+        "coding",
+        "openclaw",
+        "vision"
+      ],
+      "contextWindow": 1000000
+    },
+    {
+      "_id": "6a8d94dcfc85735428e54b1a",
+      "name": "anthropic/claude-opus-5",
+      "description": "the model 5 adalah model AI berkemampuan tinggi yang dirancang untuk menangani pekerjaan kompleks dengan konteks panjang hingga 1.000.000 token. Dukungan vision memungkinkan model memahami dan menganalisis gambar, dokumen visual, diagram, serta tangkapan layar secara lebih menyeluruh. Dengan kemampuan penalaran yang kuat dan pemahaman konteks yang luas, Claude Opus 5 cocok untuk menyusun analisis mendalam, merangkum dokumen besar, serta mengelola percakapan dan proyek yang berlangsung dalam jangka panjang.\n\nUntuk developer, Claude Opus 5 dapat membantu menulis, meninjau, melakukan debugging, dan merancang kode dalam berbagai tahap pengembangan perangkat lunak. Model ini juga ideal sebagai fondasi AI agent yang perlu merencanakan tugas, menggunakan berbagai alat, dan mempertahankan konteks pekerjaan secara konsisten. Content creator, peneliti, konsultan, analis, dan profesional bisnis dapat memanfaatkannya untuk riset, pembuatan konten, dokumentasi, strategi, serta otomasi alur kerja. Perpaduan kemampuan vision, context window besar, dan fleksibilitas penggunaan menjadikannya pilihan kuat untuk kebutuhan AI profesional.",
+      "modelId": "anthropic/claude-opus-5",
+      "price": 0,
+      "inputPrice": 2.5,
+      "outputPrice": 12.5,
+      "cacheWritePrice": 0,
+      "cacheReadPrice": 0.5,
+      "imageOutputPrice": 0,
+      "capabilities": [
+        "chat",
+        "coding",
+        "tools",
+        "vision"
+      ],
+      "contextWindow": 1000000
+    },
+    {
+      "_id": "6ab3503a839a53d82bac9740",
+      "name": "anthropic/claude-opus-5.5",
+      "description": "claude opus 5.5 adalah model AI berkemampuan tinggi yang dirancang untuk menangani pekerjaan kompleks dengan konteks panjang hingga 1.000.000 token. Dukungan vision memungkinkan model memahami dan menganalisis gambar, dokumen visual, diagram, serta tangkapan layar secara lebih menyeluruh. Dengan kemampuan penalaran yang kuat dan pemahaman konteks yang luas, Claude Opus 5.5 cocok untuk menyusun analisis mendalam, merangkum dokumen besar, serta mengelola percakapan dan proyek yang berlangsung dalam jangka panjang. Untuk developer, Claude Opus 5.5 dapat membantu menulis, meninjau, melakukan debugging, dan merancang kode dalam berbagai tahap pengembangan perangkat lunak. Model ini juga ideal sebagai fondasi AI agent yang perlu merencanakan tugas, menggunakan berbagai alat, dan mempertahankan konteks pekerjaan secara konsisten. Content creator, peneliti, konsultan, analis, dan profesional bisnis dapat memanfaatkannya untuk riset, pembuatan konten, dokumentasi, strategi, serta otomasi alur kerja. Perpaduan kemampuan vision, context window besar, dan fleksibilitas penggunaan menjadikannya pilihan kuat untuk kebutuhan AI profesional.",
+      "modelId": "anthropic/claude-opus-5.5",
+      "price": 0,
+      "inputPrice": 2,
+      "outputPrice": 8,
+      "cacheWritePrice": 0,
+      "cacheReadPrice": 0.2,
+      "imageOutputPrice": 0,
+      "capabilities": [
+        "chat",
+        "coding",
+        "openclaw",
+        "vision"
+      ],
+      "contextWindow": 1000000
+    },
+    {
+      "_id": "6a0288d4d023f2fce86cec92",
+      "name": "anthropic/claude-sonnet-4.6",
+      "description": "Sonnet 4.6 is Anthropic's most capable Sonnet-class model yet, with frontier performance across coding, agents, and professional work. It excels at iterative development, complex codebase navigation, end-to-end project management with memory, polished document creation, and confident computer use for web QA and workflow automation.",
+      "modelId": "anthropic/claude-sonnet-4.6",
+      "price": 0,
+      "inputPrice": 1.5,
+      "outputPrice": 4,
+      "capabilities": [
+        "chat",
+        "coding",
+        "openclaw",
+        "vision"
+      ],
+      "contextWindow": 1000000,
+      "cacheReadPrice": 0.15,
+      "cacheWritePrice": 1.87,
+      "imageOutputPrice": 0
+    },
+    {
+      "_id": "6a8d94dcfc85735428e54b1d",
+      "name": "anthropic/claude-sonnet-5",
+      "description": "the model 5 adalah model AI multimodal dengan context window hingga 1.000.000 token, dirancang untuk menangani pekerjaan kompleks dengan konteks panjang dan alur kerja berkelanjutan. Dukungan vision memungkinkan model memahami gambar, tangkapan layar, diagram, dokumen visual, serta kombinasi teks dan gambar. Kemampuan ini menjadikannya pilihan kuat untuk analisis mendalam, pemrosesan dokumen, dan interaksi berbasis data.\n\nClaude Sonnet 5 cocok untuk developer yang membutuhkan bantuan coding, debugging, code review, dokumentasi teknis, hingga pengembangan aplikasi secara bertahap. Model ini juga dapat mendukung pembangunan AI agent yang perlu membaca banyak informasi, mempertahankan konteks, dan menyelesaikan tugas dalam beberapa langkah. Untuk pekerjaan profesional jangka panjang, kapasitas konteksnya membantu mengurangi kebutuhan memecah dokumen atau percakapan besar menjadi bagian-bagian kecil.\n\nContent creator, peneliti, analis, tim produk, dan bisnis dapat memanfaatkannya untuk riset, penyusunan konten, peringkasan laporan, analisis visual, serta brainstorming terarah. Claude Sonnet 5 menawarkan keseimbangan antara kemampuan penalaran, fleksibilitas multimodal, dan dukungan untuk workflow produktif.",
+      "modelId": "anthropic/claude-sonnet-5",
+      "price": 0,
+      "inputPrice": 1,
+      "outputPrice": 5,
+      "cacheWritePrice": 1.28,
+      "cacheReadPrice": 0.09,
+      "imageOutputPrice": 0,
+      "capabilities": [
+        "chat",
+        "coding",
+        "tools",
+        "vision"
+      ],
+      "contextWindow": 1000000
+    },
+    {
+      "_id": "6abc8c53839a53d82bb08ff3",
+      "name": "anthropic/claude-sonnet-5.5",
+      "description": "claude sonnet 5.5 adalah model AI berkemampuan tinggi yang dirancang untuk menangani pekerjaan kompleks dengan konteks panjang hingga 1.000.000 token. Dukungan vision memungkinkan model memahami dan menganalisis gambar, dokumen visual, diagram, serta tangkapan layar secara lebih menyeluruh. Dengan kemampuan penalaran yang kuat dan pemahaman konteks yang luas, Claude Sonnet 5.5 cocok untuk menyusun analisis mendalam, merangkum dokumen besar, serta mengelola percakapan dan proyek yang berlangsung dalam jangka panjang. Untuk developer, Claude Sonnet 5.5 dapat membantu menulis, meninjau, melakukan debugging, dan merancang kode dalam berbagai tahap pengembangan perangkat lunak. Model ini juga ideal sebagai fondasi AI agent yang perlu merencanakan tugas, menggunakan berbagai alat, dan mempertahankan konteks pekerjaan secara konsisten. Content creator, peneliti, konsultan, analis, dan profesional bisnis dapat memanfaatkannya untuk riset, pembuatan konten, dokumentasi, strategi, serta otomasi alur kerja. Perpaduan kemampuan vision, context window besar, dan fleksibilitas penggunaan menjadikannya pilihan kuat untuk kebutuhan AI profesional.",
+      "modelId": "anthropic/claude-sonnet-5.5",
+      "price": 0,
+      "inputPrice": 1,
+      "outputPrice": 4,
+      "cacheWritePrice": 0,
+      "cacheReadPrice": 0.2,
+      "imageOutputPrice": 0,
+      "capabilities": [
+        "chat",
+        "coding",
+        "openclaw",
+        "vision"
+      ],
+      "contextWindow": 1000000
+    },
+    {
+      "_id": "6ac7338a29b2ae7b3c440fb5",
+      "name": "anthropic/haiku-5.5",
+      "description": "Claude Haiku 5.5 adalah model AI yang dirancang untuk memberikan respons cepat, efisien, dan hemat biaya tanpa mengorbankan kualitas hasil. Model ini cocok untuk berbagai kebutuhan sehari-hari, mulai dari percakapan, analisis teks, peringkasan dokumen, hingga pemrosesan informasi dalam jumlah besar. Dukungan vision memungkinkan Claude Haiku 5.5 memahami dan menganalisis gambar, dokumen visual, diagram, serta tangkapan layar.\n\nUntuk developer, Claude Haiku 5.5 dapat membantu menulis kode, melakukan debugging, menjelaskan fungsi program, serta mengotomatisasi berbagai tugas pengembangan perangkat lunak. Model ini juga cocok digunakan sebagai fondasi AI agent yang membutuhkan respons cepat, penggunaan tools, dan eksekusi tugas secara berulang dengan biaya operasional yang efisien.\n\nContent creator, peneliti, pelaku bisnis, dan profesional dapat memanfaatkannya untuk pembuatan konten, klasifikasi data, layanan pelanggan, ekstraksi informasi, serta otomasi workflow. Dengan kombinasi kecepatan, efisiensi biaya, kemampuan multimodal, dan fleksibilitas integrasi API, Claude Haiku 5.5 menjadi pilihan menarik untuk aplikasi AI berskala besar yang mengutamakan performa dan efisiensi.",
+      "modelId": "anthropic/haiku-5.5",
+      "price": 0,
+      "inputPrice": 0.2,
+      "outputPrice": 1,
+      "cacheWritePrice": 0,
+      "cacheReadPrice": 0.032,
+      "imageOutputPrice": 0,
+      "capabilities": [
+        "chat",
+        "coding",
+        "openclaw",
+        "vision"
+      ],
+      "contextWindow": 1000000
+    },
+    {
+      "_id": "6a8d8d9bfc85735428e54a21",
+      "name": "deepseek/deepseek-v4-flash",
+      "description": "DeepSeek V4 Flash adalah model AI berperforma tinggi dengan context window hingga 1.000.000 token, ideal untuk menangani dokumen panjang, basis kode besar, percakapan berkelanjutan, serta instruksi kompleks dalam satu alur kerja. Model ini cocok untuk pengembangan chatbot, rangkuman dokumen, analisis teks, pembuatan dan penyempurnaan kode, riset berbasis teks, hingga otomatisasi tugas melalui AI agent. Dengan dukungan konteks yang luas, DeepSeek V4 Flash membantu menjaga konsistensi informasi tanpa sering memotong atau merangkum input secara manual.\nDeepSeek V4 Flash ditujukan bagi developer, tim produk, content creator, peneliti, dan perusahaan yang membutuhkan pemrosesan teks berskala besar dengan biaya efisien. Harganya mulai dari $0,06 per 1 juta token input dan $0,10 per 1 juta token output, sehingga sesuai untuk aplikasi dengan volume penggunaan tinggi. Model ini tidak mendukung input vision atau gambar, sehingga penggunaannya berfokus pada teks dan kode. Penerapan praktisnya mencakup asisten pemrograman, customer support otomatis, pembuatan konten, ekstraksi informasi, dan orkestrasi workflow berbasis AI.",
+      "modelId": "deepseek/deepseek-v4-flash",
+      "price": 0,
+      "inputPrice": 0.06,
+      "outputPrice": 0.1,
+      "cacheWritePrice": 0,
+      "cacheReadPrice": 0.015,
+      "imageOutputPrice": 0,
+      "capabilities": [
+        "chat",
+        "coding",
+        "tools"
+      ],
+      "contextWindow": 1000000
+    },
+    {
+      "_id": "6a8d96e0fc85735428e54bb5",
+      "name": "deepseek/deepseek-v4-pro",
+      "description": "DeepSeek V4 Pro, model reasoning canggih untuk coding dan analisis kompleks",
+      "modelId": "deepseek/deepseek-v4-pro",
+      "price": 0,
+      "inputPrice": 0.1,
+      "outputPrice": 0.2,
+      "cacheWritePrice": 0,
+      "cacheReadPrice": 0.02,
+      "imageOutputPrice": 0,
+      "capabilities": [
+        "chat",
+        "coding",
+        "tools",
+        "vision",
+        "openclaw",
+        "hermes"
+      ],
+      "contextWindow": 1000000
+    },
+    {
+      "_id": "6aa2ad2a9af7c1c6479cee38",
+      "name": "deepseek/deepseek-v4.1-flash",
+      "description": "DeepSeek V4.1 Flash adalah model AI generasi terbaru dari DeepSeek dengan context window hingga 1 juta token. Model ini mendukung vision untuk membaca dan memahami gambar, prompt caching untuk efisiensi pemrosesan, serta kemampuan reasoning yang cepat dan hemat untuk berbagai kebutuhan aplikasi modern.\n\nCocok digunakan oleh developer, chatbot, aplikasi produksi, AI agent, dan analisis konten. DeepSeek V4.1 Flash membantu membangun solusi AI yang responsif, mampu menangani konteks panjang, memahami input visual, dan mengoptimalkan kinerja pada skala penggunaan yang beragam.",
+      "modelId": "deepseek/deepseek-v4.1-flash",
+      "price": 0,
+      "inputPrice": 0.075,
+      "outputPrice": 0.3,
+      "cacheWritePrice": 0,
+      "cacheReadPrice": 0.035,
+      "imageOutputPrice": 0,
+      "capabilities": [
+        "chat",
+        "coding",
+        "openclaw",
+        "vision"
+      ],
+      "contextWindow": 1000000
+    },
+    {
+      "_id": "6ad4b325856c88b191c0c962",
+      "name": "deepseek/deepseek-v4.1-flash-1017",
+      "description": "DeepSeek V4.1 Flash adalah model AI generasi terbaru dari DeepSeek dengan context window hingga 1 juta token. Model ini mendukung vision untuk membaca dan memahami gambar, prompt caching untuk efisiensi pemrosesan, serta kemampuan reasoning yang cepat dan hemat untuk berbagai kebutuhan aplikasi modern.\n\nCocok digunakan oleh developer, chatbot, aplikasi produksi, AI agent, dan analisis konten. DeepSeek V4.1 Flash membantu membangun solusi AI yang responsif, mampu menangani konteks panjang, memahami input visual, dan mengoptimalkan kinerja pada skala penggunaan yang beragam.",
+      "modelId": "deepseek/deepseek-v4.1-flash-1017",
+      "price": 0,
+      "inputPrice": 0.1,
+      "outputPrice": 0.37,
+      "cacheWritePrice": 0,
+      "cacheReadPrice": 0.035,
+      "imageOutputPrice": 0,
+      "capabilities": [
+        "chat",
+        "coding",
+        "openclaw",
+        "hermes",
+        "vision"
+      ],
+      "contextWindow": 1000000
+    },
+    {
+      "_id": "6a967682196dfd0b5add5c08",
+      "name": "gemini/gemini-3.7-flash-high",
+      "description": "Gemini 3.7 Flash High dari Google menghadirkan performa AI yang cepat dan efisien untuk berbagai kebutuhan pengolahan teks maupun gambar. Dengan context window hingga 1.000.000 token, model ini mampu memahami dokumen panjang, percakapan kompleks, basis pengetahuan, serta instruksi berlapis dalam satu alur kerja. Dukungan vision memungkinkan analisis gambar, screenshot, diagram, dan materi visual lainnya, sementara fitur caching membantu mengoptimalkan pemrosesan berulang dan penggunaan biaya.\n\nGemini 3.7 Flash High cocok untuk developer yang membangun aplikasi AI, chatbot, sistem analisis dokumen, dan AI agent dengan konteks panjang. Content creator dapat memanfaatkannya untuk riset, penyusunan naskah, ide konten, serta evaluasi materi visual. Dengan harga sekitar $0,225 per 1 juta token input dan $1,125 per 1 juta token output, model Gemini ini menjadi pilihan praktis untuk proyek yang membutuhkan kemampuan multimodal, konteks luas, dan efisiensi biaya.",
+      "modelId": "gemini/gemini-3.7-flash-high",
+      "price": 0,
+      "inputPrice": 0.225,
+      "outputPrice": 1.125,
+      "cacheWritePrice": 0,
+      "cacheReadPrice": 0.045,
+      "imageOutputPrice": 0,
+      "capabilities": [
+        "chat",
+        "coding",
+        "openclaw",
+        "vision"
+      ],
+      "contextWindow": 1000000
+    },
+    {
+      "_id": "6a9f85239501504e623e463d",
+      "name": "gemini/gemini-3.8-flash",
+      "description": "Gemini 3.8 Flash dari Google dengan model ID gemini/gemini-3.8-flash adalah model AI cepat dan efisien untuk berbagai kebutuhan harian. Dengan context window hingga 1 juta token, dukungan vision untuk membaca serta memahami gambar, dan fitur prompt caching, model ini membantu menghasilkan respons yang konsisten, praktis, dan hemat sumber daya.\n\nCocok digunakan oleh developer untuk membangun chatbot, aplikasi produksi, sistem analisis konten, serta solusi AI dengan kebutuhan pemrosesan konteks panjang. Gemini 3.8 Flash menawarkan keseimbangan antara kecepatan, kemampuan memahami informasi multimodal, efisiensi operasional, dan fleksibilitas untuk mendukung berbagai skenario penggunaan.",
+      "modelId": "gemini/gemini-3.8-flash",
+      "price": 0,
+      "inputPrice": 0.5,
+      "outputPrice": 1,
+      "cacheWritePrice": 0,
+      "cacheReadPrice": 0.1,
+      "imageOutputPrice": 0,
+      "capabilities": [],
+      "contextWindow": 1000000
+    },
+    {
+      "_id": "6a8facb336ad7e82c10ee726",
+      "name": "glm/glm-5.3-flash",
+      "description": "GLM-5.3-Flash adalah model AI berperforma cepat dengan context window hingga 1.000.000 token, ideal untuk memproses dokumen panjang, percakapan kompleks, basis pengetahuan, serta instruksi berlapis dalam satu sesi. Mendukung input gambar, model ini dapat membantu memahami teks visual, tangkapan layar, diagram, dan berbagai materi multimodal. Dengan kemampuan tersebut, GLM-5.3-Flash cocok untuk membangun chatbot, copilot, sistem tanya jawab berbasis dokumen, dan aplikasi AI agent yang membutuhkan konteks luas.\nModel dari Zhipu AI ini dirancang untuk developer, tim produk, content creator, serta bisnis yang ingin mengintegrasikan AI secara efisien. Gunakan untuk merangkum laporan, mengekstrak informasi, menganalisis gambar, menghasilkan ide konten, menyusun draf, atau mengotomatisasi alur kerja berbasis bahasa. Biayanya kompetitif, yaitu $0,075 per 1 juta token input dan $0,25 per 1 juta token output, sehingga sesuai untuk prototipe maupun aplikasi produksi dengan kebutuhan pemrosesan skala besar.",
+      "modelId": "glm/glm-5.3-flash",
+      "price": 0,
+      "inputPrice": 0.075,
+      "outputPrice": 0.25,
+      "cacheWritePrice": 0.015,
+      "cacheReadPrice": 0.015,
+      "imageOutputPrice": 0,
+      "capabilities": [
+        "chat",
+        "vision"
+      ],
+      "contextWindow": 1000000
+    },
+    {
+      "_id": "6a90e096417958dfaf37e040",
+      "name": "minimax/minimax-m3",
+      "description": "MiniMax M3 adalah model AI berkemampuan tinggi dengan context window hingga 1.000.000 token, sehingga mampu memproses dokumen panjang, basis pengetahuan besar, percakapan kompleks, dan instruksi bertahap dalam satu alur kerja. Dirancang untuk pemrosesan teks, MiniMax M3 tidak mendukung input gambar, tetapi unggul untuk memahami konteks, merangkum informasi, menyusun jawaban terstruktur, serta membantu tugas penalaran dan otomasi berbasis bahasa.\nModel AI ini cocok digunakan oleh developer untuk membangun chatbot, aplikasi pencarian semantik, asisten pemrograman, dan sistem pemrosesan dokumen berskala besar. AI agent juga dapat memanfaatkannya untuk perencanaan tugas, ekstraksi data, pembuatan laporan, dan orkestrasi workflow. Content creator, penulis, tim marketing, serta bisnis dapat menggunakannya untuk riset, pembuatan konten, penyuntingan, dan pengelolaan pengetahuan internal. Dengan harga $0,1 per 1 juta token input dan $0,2 per 1 juta token output, MiniMax M3 menawarkan opsi efisien untuk aplikasi AI dengan volume penggunaan tinggi.",
+      "modelId": "minimax/minimax-m3",
+      "price": 0,
+      "inputPrice": 0.1,
+      "outputPrice": 0.2,
+      "cacheWritePrice": 0,
+      "cacheReadPrice": 0.02,
+      "imageOutputPrice": 0,
+      "capabilities": [
+        "chat",
+        "coding"
+      ],
+      "contextWindow": 1000000
+    },
+    {
+      "_id": "6adf96141acdf616a318471f",
+      "name": "minimax/minimax-m3.1-flash",
+      "description": "MiniMax-M3.1-Flash adalah model AI multimodal yang dikembangkan oleh MiniMax. Dibandingkan dengan versi sebelumnya, M3, model ini menghadirkan peningkatan performa yang signifikan di berbagai benchmark, terutama dalam tugas agentik yang kompleks, pemrograman (coding), dan keamanan siber (cybersecurity).\n\nModel ini dirancang untuk menangani otomatisasi pekerjaan kolaboratif yang kompleks dan bertahap, memahami struktur codebase nyata, memperbaiki bug, serta mengembangkan fitur baru. Selain itu, MiniMax-M3.1-Flash juga memiliki kemampuan pemahaman dan kreasi visual, termasuk pembuatan antarmuka frontend dan presentasi.\n\nMiniMax-M3.1-Flash merupakan model open-weight dengan arsitektur Mixture-of-Experts (MoE), yang memiliki 23 miliar parameter aktif dari total 428 miliar parameter.",
+      "modelId": "minimax/minimax-m3.1-flash",
+      "price": 0,
+      "inputPrice": 0.075,
+      "outputPrice": 0.6,
+      "cacheWritePrice": 0,
+      "cacheReadPrice": 0.02,
+      "imageOutputPrice": 0,
+      "capabilities": [
+        "chat",
+        "coding",
+        "openclaw",
+        "hermes",
+        "vision"
+      ],
+      "contextWindow": 1000000
+    },
+    {
+      "_id": "6a8e128cb5dad830614e386f",
+      "name": "moonshot/kimi-k2.7-code",
+      "description": "moonshot/kimi-k2.7-code adalah model AI untuk membantu pengembangan software, analisis kode, dan otomatisasi alur kerja teknis dengan konteks hingga 1.000.000 token. Kapasitas konteks yang besar memudahkan model memahami codebase panjang, dokumentasi proyek, log error, serta banyak file sekaligus tanpa sering kehilangan konteks. Dukungan vision/gambar juga memungkinkan analisis screenshot antarmuka, diagram arsitektur, mockup, dan ilustrasi teknis sebagai bagian dari proses kerja.\nModel ini cocok untuk developer, software engineer, tim QA, AI agent, dan content creator teknis yang membutuhkan bantuan coding secara fleksibel. Gunakan untuk membuat atau merapikan kode, menemukan bug, menjelaskan fungsi kompleks, menulis dokumentasi, menyusun test case, menganalisis desain UI, hingga membangun workflow agen AI berbasis pemrograman. Dengan harga $0,38 per 1 juta token input dan $1,60 per 1 juta token output, moonshot/kimi-k2.7-code menjadi pilihan efisien untuk eksperimen, prototyping, maupun integrasi aplikasi berskala besar.",
+      "modelId": "moonshot/kimi-k2.7-code",
+      "price": 0,
+      "inputPrice": 0.38,
+      "outputPrice": 1.6,
+      "cacheWritePrice": 0,
+      "cacheReadPrice": 0.076,
+      "imageOutputPrice": 0,
+      "capabilities": [
+        "chat",
+        "vision"
+      ],
+      "contextWindow": 1000000
+    },
+    {
+      "_id": "6a8e128cb5dad830614e386c",
+      "name": "moonshot/kimi-k3",
+      "description": "Moonshot/Kimi-K3 adalah model AI multimodal dari Moonshot AI yang dirancang untuk menangani tugas kompleks dengan konteks sangat panjang hingga 1.000.000 token. Dukungan vision memungkinkan model memahami dan menganalisis gambar, dokumen visual, tangkapan layar, diagram, serta berbagai jenis konten multimodal. Dengan kapasitas konteks besar, Kimi-K3 cocok untuk merangkum dokumen panjang, menelusuri basis pengetahuan, menganalisis laporan, memahami percakapan berkelanjutan, dan menjaga konsistensi dalam proyek yang membutuhkan banyak informasi.\nModel AI ini ideal bagi developer yang membangun aplikasi berbasis bahasa alami, AI agent, chatbot, asisten riset, otomasi dokumen, dan sistem analisis multimodal. Content creator juga dapat memanfaatkannya untuk riset ide, penyusunan naskah, pengembangan konten, serta evaluasi materi visual. Harga penggunaannya kompetitif, yaitu $1 per 1 juta token input dan $4 per 1 juta token output, sehingga sesuai untuk eksperimen maupun implementasi produksi dengan kebutuhan pemrosesan skala besar.",
+      "modelId": "moonshot/kimi-k3",
+      "price": 0,
+      "inputPrice": 1,
+      "outputPrice": 4,
+      "cacheWritePrice": 0,
+      "cacheReadPrice": 0.2,
+      "imageOutputPrice": 0,
+      "capabilities": [
+        "chat",
+        "vision"
+      ],
+      "contextWindow": 1000000
+    },
+    {
+      "_id": "6aded8c723ad1b345fce7898",
+      "name": "moonshotai/kimi-k3.1-pro",
+      "description": "Kimi K3.1 Pro adalah model AI multimodal unggulan dari Moonshot AI dengan bobot terbuka (open-weight) dan kemampuan reasoning tingkat lanjut.\n\nSebagai penerus Kimi K3 yang telah melalui tahap post-training, model ini menawarkan context window hingga 1 juta token.\n\nKimi K3.1 Pro dirancang untuk menangani tugas kompleks seperti coding jangka panjang, pembuatan konten 3D, riset keuangan, hingga pekerjaan berbasis AI Agent secara end-to-end.\n\nModel ini juga memiliki kemampuan native untuk memahami gambar dan video secara langsung.",
+      "modelId": "moonshotai/kimi-k3.1-pro",
+      "price": 0,
+      "inputPrice": 0.4,
+      "outputPrice": 4,
+      "cacheWritePrice": 0,
+      "cacheReadPrice": 0.06,
+      "imageOutputPrice": 0,
+      "capabilities": [
+        "chat",
+        "coding",
+        "openclaw",
+        "vision"
+      ],
+      "contextWindow": 1000000
+    },
+    {
+      "_id": "6a922f842f0ab4fe3bc31bbe",
+      "name": "openai/gpt-5.6-luna",
+      "description": "openai/gpt-5.6-luna menghadirkan kemampuan AI multimodal dengan context window hingga 1.000.000 token, sehingga mampu memahami dan mengolah percakapan panjang, dokumen besar, basis pengetahuan, serta instruksi kompleks dalam satu alur kerja. Dukungan vision/gambar memungkinkan model menganalisis foto, tangkapan layar, diagram, tabel, dan berbagai materi visual untuk menghasilkan respons yang lebih relevan. Dengan kombinasi kapasitas konteks luas dan biaya efisien, model ini cocok untuk kebutuhan AI modern yang memerlukan pemahaman mendalam tanpa mengorbankan skalabilitas.\nModel ini ideal untuk developer yang membangun chatbot, aplikasi analisis dokumen, sistem pencarian berbasis AI, dan workflow otomatisasi. AI agent dapat memanfaatkannya untuk mempertahankan konteks tugas yang panjang, sementara content creator dapat menggunakannya untuk riset, penyusunan outline, penulisan, serta evaluasi materi visual. Efisiensi biayanya menjadikannya pilihan menarik untuk prototipe maupun aplikasi produksi dengan volume penggunaan tinggi.",
+      "modelId": "openai/gpt-5.6-luna",
+      "price": 0,
+      "inputPrice": 0.06,
+      "outputPrice": 0.5,
+      "cacheWritePrice": 0,
+      "cacheReadPrice": 0.01,
+      "imageOutputPrice": 0,
+      "capabilities": [
+        "chat",
+        "coding",
+        "openclaw",
+        "vision"
+      ],
+      "contextWindow": 1000000
+    },
+    {
+      "_id": "6a71edb3df3133a2838d53a1",
+      "name": "openai/gpt-5.6-sol",
+      "description": "openai/gpt-5.6-sol menghadirkan kemampuan AI dengan context window hingga 1.000.000 token, sehingga mampu memproses dokumen panjang, basis pengetahuan besar, riwayat percakapan kompleks, dan instruksi bertahap dalam satu alur kerja. Dukungan vision memungkinkan model memahami gambar, tangkapan layar, diagram, tabel, serta materi visual lainnya. Kombinasi ini menjadikannya pilihan menarik untuk analisis informasi, ekstraksi data, pemahaman dokumen, dan interaksi multimodal.\nModel AI ini cocok untuk developer yang membangun aplikasi berbasis bahasa dan gambar, AI agent yang membutuhkan konteks panjang, content creator untuk riset serta penyusunan konten, dan tim bisnis yang ingin mengotomatisasi pekerjaan berbasis dokumen. Gunakan untuk merangkum laporan, menganalisis kontrak, membaca dashboard, mengolah materi riset, membantu pemrograman, atau membuat alur kerja customer support yang lebih informatif. Dengan harga $0,6 per 1 juta token input dan $4 per 1 juta token output, openai/gpt-5.6-sol menawarkan opsi efisien untuk berbagai kebutuhan AI skala kecil hingga besar.",
+      "modelId": "openai/gpt-5.6-sol",
+      "price": 0,
+      "inputPrice": 0.6,
+      "outputPrice": 4,
+      "cacheWritePrice": 1.46,
+      "cacheReadPrice": 0.13,
+      "imageOutputPrice": 0,
+      "capabilities": [
+        "chat",
+        "coding",
+        "openclaw",
+        "vision"
+      ],
+      "contextWindow": 1000000
+    },
+    {
+      "_id": "6a71ed4edf3133a2838d5397",
+      "name": "openai/gpt-5.6-terra",
+      "description": "openai/gpt-5.6-terra menghadirkan kemampuan AI dengan context window hingga 1.000.000 token, sehingga mampu memahami dokumen panjang, basis pengetahuan besar, rangkaian percakapan kompleks, serta instruksi berlapis dalam satu sesi. Dukungan vision memungkinkan model menganalisis gambar, tangkapan layar, diagram, tabel, dan berbagai materi visual untuk menghasilkan jawaban yang lebih kontekstual. Kapasitas besar ini cocok untuk pemrosesan informasi mendalam tanpa perlu sering memotong atau merangkum konteks.\nModel ini dapat dimanfaatkan developer untuk membangun chatbot cerdas, aplikasi analisis dokumen, pencarian berbasis pengetahuan, dan workflow otomatisasi. AI agent juga dapat menggunakannya untuk perencanaan tugas, pengambilan keputusan berbasis konteks, serta interaksi multimodal. Bagi content creator, openai/gpt-5.6-terra membantu riset, penyusunan ide, pengembangan naskah, dan evaluasi materi visual. Dengan harga $0,3 per 1 juta token input dan $2 per 1 juta token output, model ini menawarkan pilihan efisien untuk proyek AI skala kecil hingga kebutuhan produksi dengan volume tinggi.",
+      "modelId": "openai/gpt-5.6-terra",
+      "price": 0,
+      "inputPrice": 0.3,
+      "outputPrice": 2,
+      "cacheWritePrice": 0.79,
+      "cacheReadPrice": 0.05,
+      "imageOutputPrice": 0,
+      "capabilities": [
+        "chat",
+        "coding",
+        "openclaw",
+        "vision"
+      ],
+      "contextWindow": 1000000
+    },
+    {
+      "_id": "6a9b8cff5fc1c7aa637588b6",
+      "name": "openai/gpt-6-astra",
+      "description": "GPT-6 Astra dari OpenAI dengan model ID openai/gpt-6-astra merupakan model AI generasi terbaru yang menawarkan kemampuan reasoning dan coding kelas atas. Dengan context window hingga 1.000.000 token, dukungan vision untuk membaca gambar, serta prompt caching, model ini cocok untuk memproses informasi kompleks, memahami dokumen panjang, dan membangun solusi AI berkinerja tinggi.\n\nGPT-6 Astra ideal untuk developer, perusahaan, AI agent, analisis dokumen besar, dan aplikasi produksi yang membutuhkan akurasi serta skalabilitas. Harganya hanya $4 per 1 juta token input dan $20 per 1 juta token output, atau diskon 60% dari harga resmi $10/$50, sehingga memberikan nilai ekonomis untuk berbagai kebutuhan pengembangan dan operasional AI.",
+      "modelId": "openai/gpt-6-astra",
+      "price": 0,
+      "inputPrice": 4,
+      "outputPrice": 20,
+      "cacheWritePrice": 0,
+      "cacheReadPrice": 0.8,
+      "imageOutputPrice": 0,
+      "capabilities": [
+        "chat",
+        "coding",
+        "openclaw"
+      ],
+      "contextWindow": 1000000
+    },
+    {
+      "_id": "6ab33f99839a53d82bac894f",
+      "name": "openai/gpt-6-luna",
+      "description": "GPT-6 Luna adalah API AI cepat dan hemat untuk kebutuhan developer modern, mulai dari membangun chatbot, asisten virtual, otomasi workflow, hingga integrasi aplikasi berbasis bahasa alami. Model ini mendukung context window hingga 1 juta token, sehingga mampu menangani dokumen panjang, percakapan kompleks, basis pengetahuan besar, serta instruksi multi tahap dengan konteks yang tetap terjaga.\n\nDengan dukungan vision, GPT-6 Luna dapat memahami gambar, tangkapan layar, tabel, dan berbagai konten visual untuk analisis yang lebih lengkap. Kemampuan reasoning membantu coding, debugging, ekstraksi informasi, rangkuman, klasifikasi, dan pengambilan keputusan. Cocok untuk AI agent dan tugas harian bervolume tinggi yang membutuhkan respons cepat, efisien, dan mudah diskalakan melalui API.",
+      "modelId": "openai/gpt-6-luna",
+      "price": 0,
+      "inputPrice": 0.04,
+      "outputPrice": 0.2,
+      "cacheWritePrice": 0,
+      "cacheReadPrice": 0.008,
+      "imageOutputPrice": 0,
+      "capabilities": [
+        "chat",
+        "coding",
+        "openclaw",
+        "hermes",
+        "vision"
+      ],
+      "contextWindow": 1000000
+    },
+    {
+      "_id": "6ab33f9a839a53d82bac895a",
+      "name": "openai/gpt-6-sol",
+      "description": "GPT-6 Sol adalah API AI kelas high-end dengan kemampuan reasoning kuat untuk membantu developer membangun aplikasi cerdas yang cepat, akurat, dan fleksibel. Model ini cocok digunakan untuk chatbot, asisten virtual, pembuatan serta debugging kode, analisis konten, ekstraksi informasi, dan otomatisasi alur kerja berbasis AI. Dengan context window hingga 1 juta token, GPT-6 Sol mampu memahami dokumen panjang, basis kode besar, serta percakapan kompleks secara menyeluruh.\n\nDukungan vision memungkinkan model menganalisis gambar, tangkapan layar, diagram, dan dokumen visual dalam satu alur kerja. Kemampuan reasoning mendalam membuatnya ideal untuk AI agent yang perlu merencanakan langkah, menggunakan tool, mengambil keputusan, dan menyelesaikan tugas multi-tahap. Integrasikan API GPT-6 Sol untuk menghadirkan chatbot kontekstual, coding assistant, analisis data, dan solusi AI enterprise yang lebih andal.",
+      "modelId": "openai/gpt-6-sol",
+      "price": 0,
+      "inputPrice": 0.8,
+      "outputPrice": 3,
+      "cacheWritePrice": 0,
+      "cacheReadPrice": 0.16,
+      "imageOutputPrice": 0,
+      "capabilities": [
+        "chat",
+        "coding",
+        "openclaw",
+        "hermes",
+        "vision"
+      ],
+      "contextWindow": 1000000
+    },
+    {
+      "_id": "6abc9c21839a53d82bb09933",
+      "name": "openai/gpt-6.1-sol",
+      "description": "openai/gpt-6.1-sol menghadirkan kemampuan AI dengan context window hingga 1.000.000 token, sehingga mampu memproses dokumen panjang, basis pengetahuan besar, riwayat percakapan kompleks, dan instruksi bertahap dalam satu alur kerja. Dukungan vision memungkinkan model memahami gambar, tangkapan layar, diagram, tabel, serta materi visual lainnya. Kombinasi ini menjadikannya pilihan menarik untuk analisis informasi, ekstraksi data, pemahaman dokumen, dan interaksi multimodal.\nModel AI ini cocok untuk developer yang membangun aplikasi berbasis bahasa dan gambar, AI agent yang membutuhkan konteks panjang, content creator untuk riset serta penyusunan konten, dan tim bisnis yang ingin mengotomatisasi pekerjaan berbasis dokumen. Gunakan untuk merangkum laporan, menganalisis kontrak, membaca dashboard, mengolah materi riset, membantu pemrograman, atau membuat alur kerja customer support yang lebih informatif.",
+      "modelId": "openai/gpt-6.1-sol",
+      "price": 0,
+      "inputPrice": 1,
+      "outputPrice": 4,
+      "cacheWritePrice": 0,
+      "cacheReadPrice": 0.2,
+      "imageOutputPrice": 0,
+      "capabilities": [
+        "chat",
+        "coding",
+        "openclaw",
+        "vision"
+      ],
+      "contextWindow": 1000000
+    },
+    {
+      "_id": "6a9954a75fc1c7aa6374d7ec",
+      "name": "qwen/qwen3.6-plus-uncensored",
+      "description": "Qwen 3.6 Plus Uncensored dari Alibaba Qwen adalah model AI reasoning dengan context window hingga 131K token, dukungan vision untuk membaca dan memahami gambar, serta prompt caching untuk meningkatkan efisiensi pemrosesan. Versi uncensored ini dirancang untuk memberikan respons yang lebih fleksibel tanpa pembatasan jawaban, sehingga cocok untuk kebutuhan pengembangan dan eksperimen AI tingkat lanjut.\n\nModel ini ideal bagi developer, AI researcher, praktisi red teaming, serta pengembang advanced agent workflow yang membutuhkan kemampuan analisis mendalam dan konteks panjang. Dengan harga $0.5 per 1 juta token input dan $2.0 per 1 juta token output, Qwen 3.6 Plus Uncensored menawarkan kombinasi performa, fleksibilitas, dan efisiensi biaya untuk berbagai proyek AI.",
+      "modelId": "qwen/qwen3.6-plus-uncensored",
+      "price": 0,
+      "inputPrice": 0.5,
+      "outputPrice": 2,
+      "cacheWritePrice": 0,
+      "cacheReadPrice": 0.1,
+      "imageOutputPrice": 0,
+      "capabilities": [],
+      "contextWindow": 1000000
+    },
+    {
+      "_id": "6a90e096417958dfaf37e03d",
+      "name": "qwen/qwen3.8-max",
+      "description": "Qwen3.8-Max adalah model AI multimodal dari keluarga Qwen yang dirancang untuk memahami instruksi kompleks, menghasilkan teks berkualitas, serta memproses gambar dalam satu alur kerja. Dengan context window hingga 1.000.000 token, model ini mampu menangani dokumen panjang, basis pengetahuan besar, percakapan berkelanjutan, dan analisis informasi dalam skala luas tanpa sering kehilangan konteks. Dukungan vision membuatnya ideal untuk membaca tabel, memahami diagram, mengekstrak informasi dari gambar, dan menganalisis berbagai materi visual.\nQwen3.8-Max cocok untuk developer yang membangun aplikasi AI, AI agent, chatbot bisnis, sistem tanya jawab berbasis dokumen, otomatisasi operasional, hingga workflow multimodal. Content creator juga dapat memanfaatkannya untuk riset, penyusunan outline, penulisan, penyuntingan, dan pengembangan ide dari referensi teks maupun gambar. Dengan harga kompetitif sebesar $0,2 per 1 juta token input dan $0,6 per 1 juta token output, model ini menawarkan pilihan efisien untuk eksperimen, penggunaan produksi, dan aplikasi yang membutuhkan konteks panjang serta kemampuan analisis multimodal.",
+      "modelId": "qwen/qwen3.8-max",
+      "price": 0,
+      "inputPrice": 0.2,
+      "outputPrice": 0.6,
+      "cacheWritePrice": 0,
+      "cacheReadPrice": 0.04,
+      "imageOutputPrice": 0,
+      "capabilities": [
+        "chat",
+        "vision"
+      ],
+      "contextWindow": 1000000
+    },
+    {
+      "_id": "6af6b129e9b012ea84c5eb7b",
+      "name": "vikey/deepseek-v4.1-flash-1017-uncensored",
+      "description": "DeepSeek V4.1 Flash 1017 Uncensored adalah model turunan pihak ketiga dari DeepSeek V4.1 Flash (1017), yang dikembangkan oleh dealignai dalam format FP8. Model ini telah melalui proses abliteration, yaitu penghapusan mekanisme penolakan langsung pada bobot model agar dapat merespons berbagai kategori topik tanpa pembatasan bawaan. Menurut dokumentasi pengembang, seluruh kemampuan model asli tetap dipertahankan, termasuk vision, video, berbagai tingkat reasoning, tool calling, speculative decoding, dan context window native hingga 1 juta token.\n\nModel dasarnya, DeepSeek V4.1 Flash (1017), merupakan pembaruan minor dari DeepSeek V4.1 Flash dengan peningkatan kemampuan reasoning, coding, tugas AI agent, dan pemahaman visual. Secara arsitektur, model ini tetap menggunakan Mixture-of-Experts (MoE) dengan total 552 miliar parameter serta mendukung input teks dan gambar untuk menghasilkan output teks secara autoregresif.\n\nDibandingkan DeepSeek V4.1 Flash Uncensored sebelumnya, versi ini menggunakan bobot terbaru 1017, bukan bobot dari rilis awal V4.1 Flash. Keluarga model Flash sendiri merupakan kelanjutan dari model sebelumnya, seperti DeepSeek V4 Flash 0731 dan DeepSeek V3.2.\n\nPengembang juga memberikan dua catatan penting: proses abliteration mengubah alignment model sehingga hasilnya perlu diperiksa lebih hati-hati, dan melakukan quantization ulang dari FP8 ke presisi yang lebih rendah dapat menambah kesalahan numerik serta menurunkan kualitas respons.\n\nSource: https://huggingface.co/dealignai/DeepSeek-V4.1-Flash-1017-UNCENSORED-FP8",
+      "modelId": "vikey/deepseek-v4.1-flash-1017-uncensored",
+      "price": 0,
+      "inputPrice": 0.5,
+      "outputPrice": 3,
+      "cacheWritePrice": 0,
+      "cacheReadPrice": 0.1,
+      "imageOutputPrice": 0,
+      "capabilities": [
+        "chat",
+        "coding",
+        "openclaw",
+        "hermes",
+        "vision"
+      ],
+      "contextWindow": 1000000
+    },
+    {
+      "_id": "6ae007f81acdf616a3187770",
+      "name": "vikey/deepseek-v4.1-flash-uncensored",
+      "description": "DeepSeek V4.1 Flash Uncensored adalah versi modifikasi dari DeepSeek V4.1 Flash oleh tim dealignai yang menghilangkan mekanisme penolakan (refusal) melalui teknik abliteration.\n\nMenggunakan arsitektur Mixture-of-Experts (MoE) dengan 552 miliar parameter, mendukung input teks dan gambar, context window hingga 1 juta token, serta reasoning yang dapat disesuaikan. Tetap menggunakan format FP8 dan kompatibel dengan deployment model original.\n\nSource: https://huggingface.co/dealignai/DeepSeek-V4.1-Flash-UNCENSORED-FP8",
+      "modelId": "vikey/deepseek-v4.1-flash-uncensored",
+      "price": 0,
+      "inputPrice": 0.5,
+      "outputPrice": 3,
+      "cacheWritePrice": 0,
+      "cacheReadPrice": 0.1,
+      "imageOutputPrice": 0,
+      "capabilities": [
+        "chat",
+        "coding",
+        "openclaw",
+        "hermes",
+        "vision",
+        "uncensored"
+      ],
+      "contextWindow": 1000000
+    },
+    {
+      "_id": "6ac3578929b2ae7b3c426a20",
+      "name": "xiaomi/mimo-v2.6-pro",
+      "description": "Xiaomi MiMo-V2.6 Pro adalah model API AI canggih untuk membangun aplikasi pintar yang responsif, akurat, dan mudah dikembangkan. Model ini mendukung chatbot layanan pelanggan, asisten virtual, analisis konten, serta otomasi alur kerja berbasis bahasa alami. Dengan dukungan vision, MiMo-V2.6 Pro mampu memahami gambar, membaca informasi visual, mengekstrak detail, dan menggabungkannya dengan konteks teks untuk menghasilkan respons yang lebih relevan.\n\nKemampuan reasoning yang kuat membantu developer menangani pertanyaan kompleks, pemecahan masalah, dan pengambilan keputusan bertahap. Dukungan agentic membuatnya sesuai untuk coding agent, AI agent, riset, perencanaan, dan tugas panjang yang memerlukan eksekusi multi-langkah. Context window besar memungkinkan pemrosesan dokumen panjang, riwayat percakapan, basis kode, serta data multimodal dalam satu alur kerja, sehingga integrasi API menjadi lebih efisien dan fleksibel.",
+      "modelId": "xiaomi/mimo-v2.6-pro",
+      "price": 0,
+      "inputPrice": 0.2,
+      "outputPrice": 0.4,
+      "cacheWritePrice": 0,
+      "cacheReadPrice": 0.04,
+      "imageOutputPrice": 0,
+      "capabilities": [
+        "chat",
+        "coding",
+        "openclaw",
+        "vision"
+      ],
+      "contextWindow": 1000000
+    },
+    {
+      "_id": "6a8e128cb5dad830614e3872",
+      "name": "zai/glm-5.3",
+      "description": "zai/glm-5.3 adalah model AI berbasis bahasa dengan context window hingga 1.000.000 token, cocok untuk menangani dokumen panjang, percakapan berkelanjutan, basis pengetahuan, serta instruksi kompleks dalam satu alur kerja. Kapasitas konteks yang besar membantu developer membangun aplikasi AI yang memproses arsip, kontrak, laporan, transkrip, atau kode dalam skala panjang tanpa sering memotong informasi penting. Model ini tidak mendukung input gambar, sehingga penggunaannya berfokus pada pemrosesan teks.\nDengan harga $0,56 per 1 juta token input dan $1,76 per 1 juta token output, zai/glm-5.3 dapat menjadi pilihan efisien untuk chatbot, AI agent, rangkuman dokumen, ekstraksi informasi, analisis teks, pembuatan konten, dan otomasi workflow. Model ini cocok untuk developer yang membutuhkan konteks besar, tim bisnis yang ingin mengolah dokumen secara lebih praktis, serta content creator yang memerlukan bantuan riset, penyusunan ide, dan penulisan berbasis teks. Kombinasi kapasitas panjang dan biaya kompetitif menjadikannya relevan untuk prototipe maupun aplikasi AI produksi.",
+      "modelId": "zai/glm-5.3",
+      "price": 0,
+      "inputPrice": 0.56,
+      "outputPrice": 1.76,
+      "cacheWritePrice": 0,
+      "cacheReadPrice": 0.056,
+      "imageOutputPrice": 0,
+      "capabilities": [
+        "chat",
+        "coding",
+        "openclaw"
+      ],
+      "contextWindow": 1000000
+    }
+  ],
+  "usdToIdr": 18000
+}

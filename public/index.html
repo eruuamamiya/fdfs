@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - EruuBot</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-950 text-white h-screen flex items-center justify-center p-4">
+  <div class="bg-gray-900 border border-gray-800 p-6 rounded-2xl w-full max-w-sm space-y-5">
+    <div class="text-center">
+      <h1 class="text-2xl font-bold text-blue-400">EruuBot AI</h1>
+      <p id="subTitle" class="text-xs text-gray-400 mt-1">Masuk untuk mulai menggunakan AI</p>
+    </div>
+
+    <div id="errorBox" class="hidden bg-red-950 border border-red-800 text-red-200 text-xs p-2.5 rounded-lg"></div>
+
+    <form id="authForm" onsubmit="submitAuth(event)" class="space-y-3">
+      <div id="usernameField" class="hidden">
+        <label class="text-xs text-gray-400">Username</label>
+        <input id="username" type="text" placeholder="Nama kamu" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm mt-1">
+      </div>
+      <div>
+        <label class="text-xs text-gray-400">Email</label>
+        <input id="email" type="email" required placeholder="email@contoh.com" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm mt-1">
+      </div>
+      <div>
+        <label class="text-xs text-gray-400">Password</label>
+        <input id="password" type="password" required placeholder="••••••••" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm mt-1">
+      </div>
+      <button type="submit" id="btnSubmit" class="w-full bg-blue-600 hover:bg-blue-500 py-2.5 rounded-lg text-sm font-semibold">
+        Masuk
+      </button>
+    </form>
+
+    <div class="text-center text-xs text-gray-400">
+      <span id="toggleText">Belum punya akun?</span>
+      <button onclick="toggleMode()" id="toggleBtn" class="text-blue-400 hover:underline font-semibold ml-1">Daftar</button>
+    </div>
+  </div>
+
+  <script>
+    if (localStorage.getItem('token')) window.location.href = '/dashboard.html';
+    let isRegister = false;
+
+    function toggleMode() {
+      isRegister = !isRegister;
+      document.getElementById('usernameField').classList.toggle('hidden', !isRegister);
+      document.getElementById('btnSubmit').innerText = isRegister ? 'Daftar Akun' : 'Masuk';
+      document.getElementById('subTitle').innerText = isRegister ? 'Buat akun baru untuk akses model AI' : 'Masuk untuk mulai menggunakan AI';
+      document.getElementById('toggleText').innerText = isRegister ? 'Sudah punya akun?' : 'Belum punya akun?';
+      document.getElementById('toggleBtn').innerText = isRegister ? 'Masuk' : 'Daftar';
+    }
+
+    async function submitAuth(e) {
+      e.preventDefault();
+      const errBox = document.getElementById('errorBox');
+      errBox.classList.add('hidden');
+
+      const endpoint = isRegister ? '/api/auth/register' : '/api/auth/login';
+      const body = {
+        username: document.getElementById('username').value,
+        email: document.getElementById('email').value,
+        password: document.getElementById('password').value
+      };
+
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      });
+      const data = await res.json();
+
+      if (!data.success) {
+        errBox.innerText = data.error;
+        errBox.classList.remove('hidden');
+      } else {
+        localStorage.setItem('token', data.token);
+        window.location.href = '/dashboard.html';
+      }
+    }
+  </script>
+</body>
+</html>
