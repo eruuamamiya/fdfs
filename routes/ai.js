@@ -116,9 +116,14 @@ router.delete('/conversations/:id', authMiddleware, async (req, res) => {
   }
 });
 
-// 5. Chat AI + Simpan Otomatis ke History Percakapan
+// 5. Chat AI + Lampiran File + Simpan Otomatis ke History Percakapan
 router.post('/chat', authMiddleware, async (req, res) => {
-  const { modelId, prompt, conversationId } = req.body;
+  const { modelId, prompt, conversationId, attachment } = req.body;
+  const cleanPrompt = String(prompt || '').trim();
+
+  if (!cleanPrompt && !attachment) {
+    return res.status(400).json({ error: 'Pesan atau lampiran file tidak boleh kosong.' });
+  }
 
   try {
     const userRef = db.collection('users').doc(req.user.id);
@@ -134,12 +139,14 @@ router.post('/chat', authMiddleware, async (req, res) => {
 
     if (isAdmin) {
       try {
-        const bRes = await axios.get('https://app.vikey.ai/api/user/billing', {
-          headers: { 'Authorization': `Bearer ${process.env.VIKEY_BILLING_TOKEN}` }
+        const billingUrl = process.env.BILLING_API_URL || 'https://iwiw.nekoganz.my.id/balance';
+        const billingKey = process.env.BILLING_API_KEY || 'testing';
+        const bRes = await axios.get(billingUrl, {
+          headers: { 'x-api-key': billingKey }
         });
         currentTokens = Number(bRes.data.balance || 0);
       } catch (e) {
-        console.error('Cek saldo Vikey gagal:', e.message);
+        console.error('Cek saldo billing gagal:', e.message);
       }
     }
 
@@ -174,21 +181,82 @@ router.post('/chat', authMiddleware, async (req, res) => {
       role: m.role === 'ai' ? 'assistant' : 'user',
       content: m.text
     }));
-    contextMessages.push({ role: 'user', content: prompt });
 
-    const apiRes = await axios.post(
-      process.env.AI_API_URL,
-      {
-        model: modelInfo.modelId,
-        messages: contextMessages
-      },
-      {
-        headers: {
-          'Authorization': `Bearer ${process.env.AI_API_KEY}`,
-          'Content-Type': 'application/json'
-        }
+    // Susun pesan user (teks biasa atau teks + file lampiran)
+    let userMessageForApi;
+    let savedUserText = cleanPrompt;
+
+    if (attachment && attachment.name) {
+      const fileLabel = `[Lampiran: ${attachment.name}]`;
+      savedUserText = cleanPrompt ? `${fileLabel}\n${cleanPrompt}` : fileLabel;
+
+      if (attachment.type === 'image' && attachment.dataUrl) {
+        const textPart = cleanPrompt || 'Tolong analisis dan jelaskan isi gambar terlampir ini.';
+        userMessageForApi = {
+          role: 'user',
+          content: [
+            { type: 'text', text: textPart },
+            { type: 'image_url', image_url: { url: attachment.dataUrl } }
+          ]
+        };
+      } else if (attachment.type === 'text' && typeof attachment.content === 'string') {
+        const truncatedContent = attachment.content.slice(0, 60000);
+        const combinedText = `${cleanPrompt || 'Tolong analisis isi file berikut:'}\n\n--- Isi File: ${attachment.name} ---\n${truncatedContent}\n--- Akhir File ---`;
+        userMessageForApi = {
+          role: 'user',
+          content: combinedText
+        };
+      } else {
+        userMessageForApi = {
+          role: 'user',
+          content: `${savedUserText}\n(Catatan: file biner ${attachment.mimeType || 'dokumen'} dilampirkan oleh user)`
+        };
       }
-    );
+    } else {
+      userMessageForApi = { role: 'user', content: cleanPrompt };
+    }
+
+    contextMessages.push(userMessageForApi);
+
+    let apiRes;
+    try {
+      apiRes = await axios.post(
+        process.env.AI_API_URL,
+        {
+          model: modelInfo.modelId,
+          messages: contextMessages
+        },
+        {
+          headers: {
+            'Authorization': `Bearer ${process.env.AI_API_KEY}`,
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+    } catch (firstErr) {
+      // Fallback jika model yang dipilih tidak mendukung payload gambar multimodal
+      if (attachment && attachment.type === 'image') {
+        contextMessages[contextMessages.length - 1] = {
+          role: 'user',
+          content: `${cleanPrompt || 'Tolong bantu saya.'}\n(User melampirkan file gambar bernama "${attachment.name}", namun model ini hanya menerima input teks.)`
+        };
+        apiRes = await axios.post(
+          process.env.AI_API_URL,
+          {
+            model: modelInfo.modelId,
+            messages: contextMessages
+          },
+          {
+            headers: {
+              'Authorization': `Bearer ${process.env.AI_API_KEY}`,
+              'Content-Type': 'application/json'
+            }
+          }
+        );
+      } else {
+        throw firstErr;
+      }
+    }
 
     const reply = apiRes.data.choices[0].message.content;
     const usage = apiRes.data.usage || { prompt_tokens: 200, completion_tokens: 300 };
@@ -200,10 +268,11 @@ router.post('/chat', authMiddleware, async (req, res) => {
     let remainingTokens = 0;
 
     if (isAdmin) {
-      // Admin memakai saldo Vikey; riwayatnya diambil langsung dari API Vikey (lihat auth.js /me)
       try {
-        const afterRes = await axios.get('https://app.vikey.ai/api/user/billing', {
-          headers: { 'Authorization': `Bearer ${process.env.VIKEY_BILLING_TOKEN}` }
+        const billingUrl = process.env.BILLING_API_URL || 'https://iwiw.nekoganz.my.id/balance';
+        const billingKey = process.env.BILLING_API_KEY || 'testing';
+        const afterRes = await axios.get(billingUrl, {
+          headers: { 'x-api-key': billingKey }
         });
         remainingTokens = Number(Number(afterRes.data.balance || 0).toFixed(2));
       } catch (e) {
@@ -214,7 +283,6 @@ router.post('/chat', authMiddleware, async (req, res) => {
         tokens: FieldValue.increment(-totalCharged)
       });
 
-      // Catat riwayat pemakaian (debit) untuk user biasa
       await logTransaction(
         req.user.id,
         'debit',
@@ -236,11 +304,17 @@ router.post('/chat', authMiddleware, async (req, res) => {
 
     const newMessages = [
       ...existingMessages,
-      { role: 'user', text: prompt, timestamp: nowIso },
+      {
+        role: 'user',
+        text: savedUserText,
+        attachmentName: attachment ? attachment.name : null,
+        timestamp: nowIso
+      },
       { role: 'ai', text: reply, meta: metaText, timestamp: nowIso }
     ];
 
-    const autoTitle = prompt.length > 42 ? prompt.slice(0, 42) + '...' : prompt;
+    const rawTitleSource = cleanPrompt || (attachment ? attachment.name : 'Percakapan Baru');
+    const autoTitle = rawTitleSource.length > 42 ? rawTitleSource.slice(0, 42) + '...' : rawTitleSource;
 
     if (isNewConversation) {
       await convRef.set({
