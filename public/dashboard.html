@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>EruuBot AI</title>
+  <link rel="icon" type="image/png" href="/icon.png" />
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     ::-webkit-scrollbar { width: 6px; height: 6px; }
@@ -38,9 +39,7 @@
       <!-- Header Drawer -->
       <div class="px-4 py-3.5 border-b border-slate-800 flex items-center justify-between shrink-0">
         <div class="flex items-center gap-2.5">
-          <div class="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center font-bold text-sm text-white">
-            AI
-          </div>
+          <img src="/icon.png" alt="Logo EruuBot" class="w-8 h-8 rounded-lg object-cover border border-slate-700" />
           <span class="font-bold text-base">EruuBot</span>
         </div>
         <button
@@ -165,6 +164,7 @@
       </button>
 
       <div class="flex items-center gap-2">
+        <img src="/icon.png" alt="Logo EruuBot" class="w-7 h-7 rounded-lg object-cover border border-slate-800" />
         <span class="font-bold text-base tracking-tight text-slate-100">EruuBot</span>
         <span id="headerPageBadge" class="text-xs text-slate-400 bg-slate-900 border border-slate-800 px-2.5 py-0.5 rounded-full truncate max-w-[170px] sm:max-w-xs">
           Memuat...
@@ -200,9 +200,7 @@
   <main id="page-chat" class="flex-1 flex flex-col max-w-4xl w-full mx-auto overflow-hidden">
     <div id="chatBox" class="flex-1 px-4 py-6 overflow-y-auto space-y-5">
       <div id="welcomeState" class="h-full flex flex-col items-center justify-center text-center px-4">
-        <div class="w-12 h-12 rounded-2xl bg-indigo-600/20 border border-indigo-500/30 flex items-center justify-center text-indigo-400 font-bold text-lg mb-3">
-          AI
-        </div>
+        <img src="/icon.png" alt="Logo EruuBot" class="w-14 h-14 rounded-2xl object-cover border border-slate-800 shadow-lg mb-3" />
         <h2 class="text-xl sm:text-2xl font-bold text-slate-100 mb-1">Halo, ada yang bisa dibantu?</h2>
         <p class="text-xs sm:text-sm text-slate-400 max-w-md">
           Pilih model AI di sebelah tombol kirim, atau buka menu garis tiga di kiri atas untuk melihat History Percakapan, Profil, Saldo, dan List Model.
@@ -210,12 +208,38 @@
       </div>
     </div>
 
-    <!-- INPUT BAR BAWAH GAYA GEMINI -->
+    <!-- INPUT BAR BAWAH GAYA GEMINI + ADD FILE -->
     <div class="px-4 pb-4 pt-2 bg-slate-950">
       <form
         onsubmit="sendPrompt(event)"
         class="bg-slate-900 border border-slate-700/90 focus-within:border-indigo-500 rounded-2xl p-2.5 shadow-xl transition"
       >
+        <!-- Preview File Terlampir -->
+        <div id="attachmentPreviewBar" class="hidden px-2 pb-2 mb-1.5 border-b border-slate-800/80 flex items-center justify-between gap-2">
+          <div class="flex items-center gap-2.5 min-w-0">
+            <img id="attachmentImageThumb" src="" alt="Preview" class="hidden w-10 h-10 rounded-lg object-cover border border-slate-700 shrink-0" />
+            <div id="attachmentFileIcon" class="w-9 h-9 rounded-lg bg-indigo-600/20 border border-indigo-500/40 flex items-center justify-center text-indigo-300 shrink-0">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+            </div>
+            <div class="min-w-0">
+              <p id="attachmentFileName" class="text-xs font-semibold text-slate-200 truncate">file.txt</p>
+              <p id="attachmentFileMeta" class="text-[10px] text-slate-400">Siap dikirim</p>
+            </div>
+          </div>
+          <button
+            type="button"
+            onclick="clearAttachment()"
+            class="p-1.5 rounded-lg text-slate-400 hover:text-rose-400 hover:bg-slate-800 transition shrink-0"
+            title="Hapus Lampiran"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+
         <textarea
           id="promptInput"
           rows="2"
@@ -225,11 +249,34 @@
         ></textarea>
 
         <div class="flex items-center justify-between gap-2 pt-2 mt-1 border-t border-slate-800/80">
-          <div class="text-[11px] text-slate-500 hidden sm:block pl-1">
-            Shift + Enter untuk baris baru
+          <div class="flex items-center gap-2">
+            <!-- Input File Tersembunyi -->
+            <input
+              type="file"
+              id="fileAttachmentInput"
+              onchange="handleFileSelect(event)"
+              accept="image/*,.txt,.md,.json,.csv,.js,.ts,.jsx,.tsx,.py,.html,.css,.sql,.xml,.yaml,.yml,.log,.env,.php,.java,.c,.cpp,.go,.rs"
+              class="hidden"
+            />
+            <!-- Tombol Add File -->
+            <button
+              type="button"
+              onclick="document.getElementById('fileAttachmentInput').click()"
+              class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 hover:text-white text-xs font-medium transition shrink-0"
+              title="Lampirkan Gambar atau File Teks/Kode (Maks. 5MB)"
+            >
+              <svg class="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
+              </svg>
+              <span class="hidden sm:inline">Add File</span>
+            </button>
+
+            <span class="text-[11px] text-slate-500 hidden md:inline">
+              Shift + Enter untuk baris baru
+            </span>
           </div>
 
-          <div class="flex items-center gap-2 ml-auto w-full sm:w-auto justify-end">
+          <div class="flex items-center gap-2 ml-auto flex-1 sm:flex-initial justify-end">
             <!-- Dropdown Pilih Model (Hanya Nama Model Tanpa Info Harga) -->
             <div class="relative flex-1 sm:flex-initial max-w-[230px]">
               <select
@@ -510,6 +557,7 @@
     let currentConversationId = null;
     let conversationList = [];
     let currentUserData = null;
+    let currentAttachment = null;
 
     function formatRupiah(num) {
       return 'Rp ' + Number(num || 0).toLocaleString('id-ID', {
@@ -523,6 +571,12 @@
         .replace(/&/g, '&amp;')
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;');
+    }
+
+    function formatFileSize(bytes) {
+      if (bytes < 1024) return bytes + ' B';
+      if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+      return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
     }
 
     function toggleSidebar(open) {
@@ -575,17 +629,16 @@
 
     function startNewChat() {
       currentConversationId = null;
+      clearAttachment();
       renderConversationHistory();
 
       const chatBox = document.getElementById('chatBox');
       chatBox.innerHTML = `
         <div id="welcomeState" class="h-full flex flex-col items-center justify-center text-center px-4">
-          <div class="w-12 h-12 rounded-2xl bg-indigo-600/20 border border-indigo-500/30 flex items-center justify-center text-indigo-400 font-bold text-lg mb-3">
-            AI
-          </div>
+          <img src="/icon.png" alt="Logo EruuBot" class="w-14 h-14 rounded-2xl object-cover border border-slate-800 shadow-lg mb-3" />
           <h2 class="text-xl sm:text-2xl font-bold text-slate-100 mb-1">Percakapan Baru Dimulai</h2>
           <p class="text-xs sm:text-sm text-slate-400 max-w-md">
-            Model aktif: <span class="text-indigo-400 font-medium">${selectedModel ? escapeHtml(selectedModel.name) : '-'}</span>. Ketik pertanyaanmu di bawah.
+            Model aktif: <span class="text-indigo-400 font-medium">${selectedModel ? escapeHtml(selectedModel.name) : '-'}</span>. Ketik pertanyaanmu atau lampirkan file di bawah.
           </p>
         </div>
       `;
@@ -609,7 +662,7 @@
       document.getElementById('profileRecoveryCode').textContent = user.recoveryCode || '--------';
     }
 
-    // 1. Load Profil & Saldo User (Admin: saldo real-time + badge ADMIN; semua user: riwayat transaksi)
+    // 1. Load Profil & Saldo User
     async function loadProfile() {
       try {
         const res = await fetch('/api/auth/me', {
@@ -638,7 +691,6 @@
           sourceEl.className = 'inline-flex items-center gap-1.5 text-xs font-semibold text-amber-400';
         }
 
-        // Riwayat transaksi: tampil untuk semua user
         const txList = document.getElementById('txList');
         if (user.recentTransactions && user.recentTransactions.length > 0) {
           txList.innerHTML = user.recentTransactions.map(tx => `
@@ -772,7 +824,6 @@
       filterPriceList();
     }
 
-    // Kartu List Model statis (anti-klik)
     function renderPriceList(list) {
       const container = document.getElementById('priceListContainer');
       if (list.length === 0) {
@@ -950,7 +1001,72 @@
       }
     }
 
-    // 4. Chat AI
+    // 4. Add File / Lampiran & Chat AI
+    function handleFileSelect(e) {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+
+      const maxBytes = 5 * 1024 * 1024; // 5MB
+      if (file.size > maxBytes) {
+        alert('Ukuran file maksimal 5 MB.');
+        e.target.value = '';
+        return;
+      }
+
+      const previewBar = document.getElementById('attachmentPreviewBar');
+      const imgThumb = document.getElementById('attachmentImageThumb');
+      const fileIcon = document.getElementById('attachmentFileIcon');
+      const nameEl = document.getElementById('attachmentFileName');
+      const metaEl = document.getElementById('attachmentFileMeta');
+
+      nameEl.textContent = file.name;
+      metaEl.textContent = formatFileSize(file.size);
+
+      if (file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          currentAttachment = {
+            name: file.name,
+            type: 'image',
+            mimeType: file.type,
+            dataUrl: reader.result
+          };
+          imgThumb.src = reader.result;
+          imgThumb.classList.remove('hidden');
+          fileIcon.classList.add('hidden');
+          previewBar.classList.remove('hidden');
+        };
+        reader.readAsDataURL(file);
+      } else {
+        const reader = new FileReader();
+        reader.onload = () => {
+          currentAttachment = {
+            name: file.name,
+            type: 'text',
+            mimeType: file.type || 'text/plain',
+            content: String(reader.result || '')
+          };
+          imgThumb.classList.add('hidden');
+          imgThumb.src = '';
+          fileIcon.classList.remove('hidden');
+          previewBar.classList.remove('hidden');
+        };
+        reader.readAsText(file);
+      }
+    }
+
+    function clearAttachment() {
+      currentAttachment = null;
+      const fileInput = document.getElementById('fileAttachmentInput');
+      if (fileInput) fileInput.value = '';
+      document.getElementById('attachmentPreviewBar')?.classList.add('hidden');
+      const imgThumb = document.getElementById('attachmentImageThumb');
+      if (imgThumb) {
+        imgThumb.classList.add('hidden');
+        imgThumb.src = '';
+      }
+    }
+
     function handlePromptKey(e) {
       if (e.key === 'Enter' && !e.shiftKey) {
         e.preventDefault();
@@ -958,7 +1074,7 @@
       }
     }
 
-    function appendMessage(role, text, meta = '') {
+    function appendMessage(role, text, meta = '', attachment = null) {
       const chatBox = document.getElementById('chatBox');
       const welcome = document.getElementById('welcomeState');
       if (welcome) welcome.remove();
@@ -969,12 +1085,30 @@
 
       const escaped = escapeHtml(text).replace(/\n/g, '<br>');
 
+      let attachmentHtml = '';
+      if (attachment && attachment.type === 'image' && attachment.dataUrl) {
+        attachmentHtml = `
+          <div class="mb-2">
+            <img src="${attachment.dataUrl}" alt="${escapeHtml(attachment.name)}" class="max-h-52 rounded-xl border border-white/20 object-contain" />
+            <span class="text-[11px] opacity-80 block mt-1">📎 ${escapeHtml(attachment.name)}</span>
+          </div>
+        `;
+      } else if (attachment && attachment.name) {
+        attachmentHtml = `
+          <div class="mb-2 inline-flex items-center gap-1.5 bg-black/25 border border-white/15 rounded-lg px-2.5 py-1 text-xs">
+            <span>📎</span>
+            <span class="truncate max-w-[220px]">${escapeHtml(attachment.name)}</span>
+          </div>
+        `;
+      }
+
       wrapper.innerHTML = `
         <div class="chat-bubble max-w-[88%] sm:max-w-[80%] rounded-2xl px-4 py-3 text-sm leading-relaxed ${
           isUser
             ? 'bg-indigo-600 text-white rounded-br-sm'
             : 'bg-slate-900 border border-slate-800 text-slate-100 rounded-bl-sm'
         }">
+          ${attachmentHtml}
           ${escaped}
         </div>
         ${meta ? `<span class="text-[11px] text-slate-500 mt-1 px-1">${escapeHtml(meta)}</span>` : ''}
@@ -990,13 +1124,16 @@
 
       const input = document.getElementById('promptInput');
       const prompt = input.value.trim();
-      if (!prompt) return;
+      const attachmentToSend = currentAttachment;
+
+      if (!prompt && !attachmentToSend) return;
 
       const btn = document.getElementById('btnSend');
       input.value = '';
+      clearAttachment();
       btn.disabled = true;
 
-      appendMessage('user', prompt);
+      appendMessage('user', prompt, '', attachmentToSend);
 
       try {
         const res = await fetch('/api/ai/chat', {
@@ -1008,7 +1145,8 @@
           body: JSON.stringify({
             modelId: selectedModel.id,
             prompt,
-            conversationId: currentConversationId
+            conversationId: currentConversationId,
+            attachment: attachmentToSend
           })
         });
 
