@@ -14,7 +14,9 @@
     </div>
 
     <div id="errorBox" class="hidden bg-red-950 border border-red-800 text-red-200 text-xs p-2.5 rounded-lg"></div>
+    <div id="successBox" class="hidden bg-emerald-950 border border-emerald-800 text-emerald-200 text-xs p-3 rounded-lg space-y-2"></div>
 
+    <!-- FORM LOGIN & REGISTER -->
     <form id="authForm" onsubmit="submitAuth(event)" class="space-y-3">
       <div id="usernameField" class="hidden">
         <label class="text-xs text-gray-400">Username</label>
@@ -25,7 +27,17 @@
         <input id="email" type="email" required placeholder="email@contoh.com" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm mt-1">
       </div>
       <div>
-        <label class="text-xs text-gray-400">Password</label>
+        <div class="flex items-center justify-between">
+          <label class="text-xs text-gray-400">Password</label>
+          <button
+            type="button"
+            id="forgotLink"
+            onclick="openForgotMode()"
+            class="text-xs text-blue-400 hover:underline"
+          >
+            Lupa password?
+          </button>
+        </div>
         <input id="password" type="password" required placeholder="••••••••" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm mt-1">
       </div>
       <button type="submit" id="btnSubmit" class="w-full bg-blue-600 hover:bg-blue-500 py-2.5 rounded-lg text-sm font-semibold">
@@ -33,29 +45,95 @@
       </button>
     </form>
 
-    <div class="text-center text-xs text-gray-400">
+    <!-- FORM LUPA PASSWORD -->
+    <form id="forgotForm" onsubmit="submitResetPassword(event)" class="hidden space-y-3">
+      <div>
+        <label class="text-xs text-gray-400">Email Terdaftar</label>
+        <input id="resetEmail" type="email" required placeholder="email@contoh.com" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm mt-1">
+      </div>
+      <div>
+        <label class="text-xs text-gray-400">Kode Pemulihan (8 Karakter)</label>
+        <input id="resetCode" type="text" required maxlength="8" placeholder="Contoh: A1B2C3D4" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm mt-1 uppercase font-mono">
+      </div>
+      <div>
+        <label class="text-xs text-gray-400">Password Baru (Min. 6 Karakter)</label>
+        <input id="resetNewPassword" type="password" required minlength="6" placeholder="••••••••" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm mt-1">
+      </div>
+      <button type="submit" id="btnResetSubmit" class="w-full bg-blue-600 hover:bg-blue-500 py-2.5 rounded-lg text-sm font-semibold">
+        Reset Password
+      </button>
+    </form>
+
+    <!-- POPUP INFO KODE PEMULIHAN SETELAH DAFTAR -->
+    <div id="registerCodeBox" class="hidden space-y-3">
+      <div class="bg-amber-950/70 border border-amber-700/80 text-amber-200 text-xs p-3 rounded-lg space-y-1.5">
+        <p class="font-semibold">Simpan Kode Pemulihan Akun Kamu!</p>
+        <p class="text-amber-300/90">Kode ini digunakan jika suatu saat kamu lupa password (juga tersimpan di menu Profil):</p>
+        <div id="registeredRecoveryCode" class="bg-gray-950 border border-amber-700/60 rounded px-3 py-2 text-center font-mono text-base font-bold tracking-widest text-amber-300 select-all">
+          --------
+        </div>
+      </div>
+      <button
+        type="button"
+        onclick="window.location.href='/dashboard.html'"
+        class="w-full bg-blue-600 hover:bg-blue-500 py-2.5 rounded-lg text-sm font-semibold"
+      >
+        Lanjut ke Dashboard
+      </button>
+    </div>
+
+    <div id="bottomSwitch" class="text-center text-xs text-gray-400">
       <span id="toggleText">Belum punya akun?</span>
-      <button onclick="toggleMode()" id="toggleBtn" class="text-blue-400 hover:underline font-semibold ml-1">Daftar</button>
+      <button type="button" onclick="toggleMode()" id="toggleBtn" class="text-blue-400 hover:underline font-semibold ml-1">Daftar</button>
     </div>
   </div>
 
   <script>
     if (localStorage.getItem('token')) window.location.href = '/dashboard.html';
     let isRegister = false;
+    let isForgot = false;
+
+    function hideAlerts() {
+      document.getElementById('errorBox').classList.add('hidden');
+      document.getElementById('successBox').classList.add('hidden');
+    }
 
     function toggleMode() {
-      isRegister = !isRegister;
+      hideAlerts();
+      if (isForgot) {
+        isForgot = false;
+        isRegister = false;
+      } else {
+        isRegister = !isRegister;
+      }
+
+      document.getElementById('authForm').classList.remove('hidden');
+      document.getElementById('forgotForm').classList.add('hidden');
       document.getElementById('usernameField').classList.toggle('hidden', !isRegister);
+      document.getElementById('forgotLink').classList.toggle('hidden', isRegister);
       document.getElementById('btnSubmit').innerText = isRegister ? 'Daftar Akun' : 'Masuk';
       document.getElementById('subTitle').innerText = isRegister ? 'Buat akun baru untuk akses model AI' : 'Masuk untuk mulai menggunakan AI';
       document.getElementById('toggleText').innerText = isRegister ? 'Sudah punya akun?' : 'Belum punya akun?';
       document.getElementById('toggleBtn').innerText = isRegister ? 'Masuk' : 'Daftar';
     }
 
+    function openForgotMode() {
+      hideAlerts();
+      isForgot = true;
+      isRegister = false;
+
+      document.getElementById('authForm').classList.add('hidden');
+      document.getElementById('forgotForm').classList.remove('hidden');
+      document.getElementById('resetEmail').value = document.getElementById('email').value || '';
+      document.getElementById('subTitle').innerText = 'Reset password menggunakan Kode Pemulihan';
+      document.getElementById('toggleText').innerText = 'Ingat password kamu?';
+      document.getElementById('toggleBtn').innerText = 'Kembali Masuk';
+    }
+
     async function submitAuth(e) {
       e.preventDefault();
+      hideAlerts();
       const errBox = document.getElementById('errorBox');
-      errBox.classList.add('hidden');
 
       const endpoint = isRegister ? '/api/auth/register' : '/api/auth/login';
       const body = {
@@ -76,7 +154,60 @@
         errBox.classList.remove('hidden');
       } else {
         localStorage.setItem('token', data.token);
-        window.location.href = '/dashboard.html';
+        if (isRegister && data.recoveryCode) {
+          document.getElementById('authForm').classList.add('hidden');
+          document.getElementById('bottomSwitch').classList.add('hidden');
+          document.getElementById('subTitle').innerText = 'Pendaftaran berhasil!';
+          document.getElementById('registeredRecoveryCode').innerText = data.recoveryCode;
+          document.getElementById('registerCodeBox').classList.remove('hidden');
+        } else {
+          window.location.href = '/dashboard.html';
+        }
+      }
+    }
+
+    async function submitResetPassword(e) {
+      e.preventDefault();
+      hideAlerts();
+      const errBox = document.getElementById('errorBox');
+      const successBox = document.getElementById('successBox');
+      const btn = document.getElementById('btnResetSubmit');
+
+      btn.disabled = true;
+      btn.innerText = 'Memproses...';
+
+      try {
+        const res = await fetch('/api/auth/reset-password', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: document.getElementById('resetEmail').value,
+            recoveryCode: document.getElementById('resetCode').value,
+            newPassword: document.getElementById('resetNewPassword').value
+          })
+        });
+        const data = await res.json();
+
+        if (!data.success) {
+          errBox.innerText = data.error;
+          errBox.classList.remove('hidden');
+        } else {
+          const emailVal = document.getElementById('resetEmail').value;
+          toggleMode();
+          document.getElementById('email').value = emailVal;
+          document.getElementById('password').value = '';
+          successBox.innerHTML = `
+            <p class="font-semibold">${data.message}</p>
+            <p>Kode pemulihan baru kamu: <span class="font-mono font-bold text-amber-300 select-all">${data.newRecoveryCode}</span> (simpan untuk cadangan berikutnya).</p>
+          `;
+          successBox.classList.remove('hidden');
+        }
+      } catch (err) {
+        errBox.innerText = 'Gagal terhubung ke server.';
+        errBox.classList.remove('hidden');
+      } finally {
+        btn.disabled = false;
+        btn.innerText = 'Reset Password';
       }
     }
   </script>
