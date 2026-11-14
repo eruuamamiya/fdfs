@@ -328,7 +328,7 @@ router.post('/chat', authMiddleware, async (req, res) => {
     }
 
     const baseFilePrompt =
-      'Jika pengguna meminta untuk membuatkan atau mengirimkan file (misalnya file codingan, teks, JSON, HTML, CSS, SQL, Markdown, dll.), sertakan seluruh isi file tersebut di dalam blok kode markdown dengan format ```bahasa:namafile.ekstensi (contoh: ```javascript:index.js atau ```python:app.py atau ```txt:catatan.txt) agar sistem dapat menampilkan tombol unduh file secara otomatis.';
+      'Jika pengguna meminta untuk membuatkan atau mengirimkan file (misalnya file codingan, teks, JSON, HTML, CSS, SQL, Markdown, dll.), sertakan seluruh isi file tersebut di dalam blok kode markdown dengan format ```bahasa:namafile.ekstensi (contoh: ```javascript:index.js atau ```python:app.py atau ```txt:catatan.txt). Jika isi file tersebut mengandung blok kode tiga backtick (```), bungkus blok terluarnya dengan empat backtick (````bahasa:namafile.ekstensi) agar tidak terpotong.';
 
     let combinedSystemPrompt = baseFilePrompt;
     let skillPromptBlock = '';
@@ -471,7 +471,6 @@ router.post('/chat', authMiddleware, async (req, res) => {
     let usage = { prompt_tokens: estimatedInputTokens, completion_tokens: 0 };
 
     if (isStreaming) {
-      // Mulai SSE setelah validasi dan preCharge saldo berhasil
       res.setHeader('Content-Type', 'text/event-stream; charset=utf-8');
       res.setHeader('Cache-Control', 'no-cache, no-transform');
       res.setHeader('Connection', 'keep-alive');
@@ -501,12 +500,13 @@ router.post('/chat', authMiddleware, async (req, res) => {
               'Authorization': `Bearer ${process.env.AI_API_KEY}`,
               'Content-Type': 'application/json'
             },
-            responseType: 'stream'
+            responseType: 'stream',
+            timeout: 180000
           }
         );
       } catch (streamInitErr) {
-        if (streamInitErr.response?.status === 400) {
-          // Fallback jika provider menolak stream_options atau role 'system'
+        const status = streamInitErr.response?.status;
+        if (status === 400 || status === 422) {
           upstreamStreamRes = await axios.post(
             process.env.AI_API_URL,
             {
@@ -519,7 +519,8 @@ router.post('/chat', authMiddleware, async (req, res) => {
                 'Authorization': `Bearer ${process.env.AI_API_KEY}`,
                 'Content-Type': 'application/json'
               },
-              responseType: 'stream'
+              responseType: 'stream',
+              timeout: 180000
             }
           );
         } else {
@@ -602,7 +603,6 @@ router.post('/chat', authMiddleware, async (req, res) => {
             : Math.max(1, Math.ceil(reply.length / 4))
       };
     } else {
-      // Mode non-streaming standar
       let apiRes;
       try {
         apiRes = await axios.post(
@@ -615,11 +615,13 @@ router.post('/chat', authMiddleware, async (req, res) => {
             headers: {
               'Authorization': `Bearer ${process.env.AI_API_KEY}`,
               'Content-Type': 'application/json'
-            }
+            },
+            timeout: 180000
           }
         );
       } catch (apiErr) {
-        if (apiErr.response?.status === 400) {
+        const status = apiErr.response?.status;
+        if (status === 400 || status === 422) {
           apiRes = await axios.post(
             process.env.AI_API_URL,
             {
@@ -630,7 +632,8 @@ router.post('/chat', authMiddleware, async (req, res) => {
               headers: {
                 'Authorization': `Bearer ${process.env.AI_API_KEY}`,
                 'Content-Type': 'application/json'
-              }
+              },
+              timeout: 180000
             }
           );
         } else {
