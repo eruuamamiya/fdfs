@@ -612,47 +612,6 @@
       "contextWindow": 1000000
     },
     {
-      "_id": "6af6b129e9b012ea84c5eb7b",
-      "name": "vikey/deepseek-v4.1-flash-1017-uncensored",
-      "description": "DeepSeek V4.1 Flash 1017 Uncensored adalah model turunan pihak ketiga dari DeepSeek V4.1 Flash (1017), yang dikembangkan oleh dealignai dalam format FP8. Model ini telah melalui proses abliteration, yaitu penghapusan mekanisme penolakan langsung pada bobot model agar dapat merespons berbagai kategori topik tanpa pembatasan bawaan. Menurut dokumentasi pengembang, seluruh kemampuan model asli tetap dipertahankan, termasuk vision, video, berbagai tingkat reasoning, tool calling, speculative decoding, dan context window native hingga 1 juta token.\n\nModel dasarnya, DeepSeek V4.1 Flash (1017), merupakan pembaruan minor dari DeepSeek V4.1 Flash dengan peningkatan kemampuan reasoning, coding, tugas AI agent, dan pemahaman visual. Secara arsitektur, model ini tetap menggunakan Mixture-of-Experts (MoE) dengan total 552 miliar parameter serta mendukung input teks dan gambar untuk menghasilkan output teks secara autoregresif.\n\nDibandingkan DeepSeek V4.1 Flash Uncensored sebelumnya, versi ini menggunakan bobot terbaru 1017, bukan bobot dari rilis awal V4.1 Flash. Keluarga model Flash sendiri merupakan kelanjutan dari model sebelumnya, seperti DeepSeek V4 Flash 0731 dan DeepSeek V3.2.\n\nPengembang juga memberikan dua catatan penting: proses abliteration mengubah alignment model sehingga hasilnya perlu diperiksa lebih hati-hati, dan melakukan quantization ulang dari FP8 ke presisi yang lebih rendah dapat menambah kesalahan numerik serta menurunkan kualitas respons.\n\nSource: https://huggingface.co/dealignai/DeepSeek-V4.1-Flash-1017-UNCENSORED-FP8",
-      "modelId": "vikey/deepseek-v4.1-flash-1017-uncensored",
-      "price": 0,
-      "inputPrice": 0.5,
-      "outputPrice": 3,
-      "cacheWritePrice": 0,
-      "cacheReadPrice": 0.1,
-      "imageOutputPrice": 0,
-      "capabilities": [
-        "chat",
-        "coding",
-        "openclaw",
-        "hermes",
-        "vision"
-      ],
-      "contextWindow": 1000000
-    },
-    {
-      "_id": "6ae007f81acdf616a3187770",
-      "name": "vikey/deepseek-v4.1-flash-uncensored",
-      "description": "DeepSeek V4.1 Flash Uncensored adalah versi modifikasi dari DeepSeek V4.1 Flash oleh tim dealignai yang menghilangkan mekanisme penolakan (refusal) melalui teknik abliteration.\n\nMenggunakan arsitektur Mixture-of-Experts (MoE) dengan 552 miliar parameter, mendukung input teks dan gambar, context window hingga 1 juta token, serta reasoning yang dapat disesuaikan. Tetap menggunakan format FP8 dan kompatibel dengan deployment model original.\n\nSource: https://huggingface.co/dealignai/DeepSeek-V4.1-Flash-UNCENSORED-FP8",
-      "modelId": "vikey/deepseek-v4.1-flash-uncensored",
-      "price": 0,
-      "inputPrice": 0.5,
-      "outputPrice": 3,
-      "cacheWritePrice": 0,
-      "cacheReadPrice": 0.1,
-      "imageOutputPrice": 0,
-      "capabilities": [
-        "chat",
-        "coding",
-        "openclaw",
-        "hermes",
-        "vision",
-        "uncensored"
-      ],
-      "contextWindow": 1000000
-    },
-    {
       "_id": "6ac3578929b2ae7b3c426a20",
       "name": "xiaomi/mimo-v2.6-pro",
       "description": "Xiaomi MiMo-V2.6 Pro adalah model API AI canggih untuk membangun aplikasi pintar yang responsif, akurat, dan mudah dikembangkan. Model ini mendukung chatbot layanan pelanggan, asisten virtual, analisis konten, serta otomasi alur kerja berbasis bahasa alami. Dengan dukungan vision, MiMo-V2.6 Pro mampu memahami gambar, membaca informasi visual, mengekstrak detail, dan menggabungkannya dengan konteks teks untuk menghasilkan respons yang lebih relevan.\n\nKemampuan reasoning yang kuat membantu developer menangani pertanyaan kompleks, pemecahan masalah, dan pengambilan keputusan bertahap. Dukungan agentic membuatnya sesuai untuk coding agent, AI agent, riset, perencanaan, dan tugas panjang yang memerlukan eksekusi multi-langkah. Context window besar memungkinkan pemrosesan dokumen panjang, riwayat percakapan, basis kode, serta data multimodal dalam satu alur kerja, sehingga integrasi API menjadi lebih efisien dan fleksibel.",
