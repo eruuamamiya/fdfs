@@ -230,6 +230,7 @@ router.delete('/conversations/:id', authMiddleware, async (req, res) => {
 router.post('/chat', authMiddleware, async (req, res) => {
   const { modelId, prompt, conversationId, attachment, attachments, skillIds, stream } = req.body;
   const cleanPrompt = String(prompt || '').trim();
+  const clientWantsSse = stream === true;
 
   // Normalisasi lampiran (mendukung array multi-file maupun single attachment)
   const rawAttachments = Array.isArray(attachments)
@@ -316,8 +317,8 @@ router.post('/chat', authMiddleware, async (req, res) => {
       String(targetApiUrl || '').toLowerCase().includes('9routes') ||
       String(modelInfo.provider || '').toUpperCase() === '9ROUTES';
 
-    // Matikan stream untuk model 9Routes atau model dengan "stream": false
-    const isStreaming = stream === true && modelInfo.stream !== false && !isNineRoutes;
+    // Upstream 9Routes pakai stream: false, tapi jalur Browser <-> Server tetap SSE + ping agar Cloudflare Tunnel tidak 524
+    const upstreamUseStream = clientWantsSse && modelInfo.stream !== false && !isNineRoutes;
 
     const requestedSkillIds = Array.isArray(skillIds)
       ? [...new Set(skillIds.map(id => String(id || '').trim()).filter(Boolean))]
@@ -483,24 +484,26 @@ router.post('/chat', authMiddleware, async (req, res) => {
 
     const fallbackMessages = [...historyMessages, fallbackUserMessage];
 
-    let reply = '';
-    let usage = { prompt_tokens: estimatedInputTokens, completion_tokens: 0 };
-
-    if (isStreaming) {
+    // Jika frontend pakai SSE, buka stream & kirim ping setiap 15 detik agar Cloudflare Tunnel tidak timeout 524
+    if (clientWantsSse) {
       res.setHeader('Content-Type', 'text/event-stream; charset=utf-8');
       res.setHeader('Cache-Control', 'no-cache, no-transform');
       res.setHeader('Connection', 'keep-alive');
       res.setHeader('X-Accel-Buffering', 'no');
       if (typeof res.flushHeaders === 'function') res.flushHeaders();
 
-      // Jaga koneksi Cloudflare Tunnel tetap aktif (hindari idle timeout 100 detik / Error 524)
       res.on('close', clearKeepAlive);
       keepAliveTimer = setInterval(() => {
         if (!res.writableEnded && !res.destroyed) {
           res.write(': ping\n\n');
         }
       }, 15000);
+    }
 
+    let reply = '';
+    let usage = { prompt_tokens: estimatedInputTokens, completion_tokens: 0 };
+
+    if (upstreamUseStream) {
       let upstreamStreamRes;
       try {
         upstreamStreamRes = await axios.post(
@@ -619,6 +622,7 @@ router.post('/chat', authMiddleware, async (req, res) => {
             : Math.max(1, Math.ceil(reply.length / 4))
       };
     } else {
+      // Upstream non-stream (stream: false), termasuk untuk 9Routes
       let apiRes;
       try {
         apiRes = await axios.post(
@@ -659,8 +663,12 @@ router.post('/chat', authMiddleware, async (req, res) => {
         }
       }
 
-      reply = apiRes.data.choices[0].message.content;
-      usage = apiRes.data.usage || {
+      reply = apiRes.data?.choices?.[0]?.message?.content || '';
+      if (!reply) {
+        throw new Error('Respons kosong dari server AI.');
+      }
+
+      usage = apiRes.data?.usage || {
         prompt_tokens: estimatedInputTokens,
         completion_tokens: Math.max(1, Math.ceil(reply.length / 4))
       };
@@ -693,7 +701,7 @@ router.post('/chat', authMiddleware, async (req, res) => {
           remainingTokens: Math.max(0, Number(initialUserTokens.toFixed(2)))
         };
 
-        if (isStreaming) {
+        if (clientWantsSse) {
           clearKeepAlive();
           sendSse({ type: 'error', ...lowBalancePayload });
           return res.end();
@@ -775,7 +783,7 @@ router.post('/chat', authMiddleware, async (req, res) => {
       remainingTokens
     };
 
-    if (isStreaming) {
+    if (clientWantsSse) {
       clearKeepAlive();
       sendSse({ type: 'done', ...finalPayload });
       return res.end();
@@ -793,15 +801,21 @@ router.post('/chat', authMiddleware, async (req, res) => {
       }
     }
 
-    console.error('AI Chat Error:', err.response?.data || err.message);
+    const upstreamStatus = err.response?.status;
+    console.error('AI Chat Error:', upstreamStatus || '', err.response?.data || err.message);
+
+    const friendlyError =
+      upstreamStatus === 524
+        ? 'Server upstream AI (9Routes) timeout karena memproses lebih dari 100 detik (HTTP 524). Saldo tidak dipotong.'
+        : 'Gagal memproses AI. Saldo tidak dipotong.';
 
     if (res.headersSent) {
       clearKeepAlive();
-      sendSse({ type: 'error', error: 'Gagal memproses AI. Saldo tidak dipotong.' });
+      sendSse({ type: 'error', error: friendlyError });
       return res.end();
     }
 
-    res.status(500).json({ error: 'Gagal memproses AI. Saldo tidak dipotong.' });
+    res.status(500).json({ error: friendlyError });
   } finally {
     clearKeepAlive();
   }
