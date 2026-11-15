@@ -40,7 +40,7 @@
     {
       "_id": "6af6b007e9b012ea84c5ea73",
       "name": "anthropic/claude-fable-5.2",
-      "description": "Claude Fable 5.2 adalah model AI paling canggih dari Anthropic, yang dirancang untuk menangani pekerjaan teknis dengan tingkat kesulitan tinggi.\n\nDibandingkan Fable 5.1, model ini membawa peningkatan signifikan dalam kemampuan coding, penalaran (reasoning), dan pemahaman visual.\n\nDalam pengujian sebelum dirilis, Fable 5.2 berhasil menyelesaikan migrasi software yang sebelumnya dianggap hampir mustahil, merancang perangkat elektronik yang benar-benar berfungsi dari nol, hingga membantu memecahkan persoalan terbuka di bidang fisika dan matematika.\n\nSelain lebih unggul secara teknis, Fable 5.2 juga mampu memberikan penjelasan yang lebih jelas dan mudah dipahami, dengan kecepatan menghasilkan output hingga 30% lebih tinggi dibandingkan Fable 5.1.\n\nFable 5.2 menggunakan Adaptive Extended Thinking yang selalu aktif, dengan tingkat reasoning mulai dari low hingga max (default: high). Model ini juga mampu mempertahankan proses reasoning antarpercakapan, sehingga lebih konsisten saat mengerjakan tugas kompleks yang membutuhkan banyak tahapan.\n\nMeski demikian, Anthropic tetap merekomendasikan Opus 5.5 untuk kebutuhan coding dan pekerjaan sehari-hari, sementara Fable 5.2 ditujukan untuk tantangan yang jauh lebih kompleks, ambisius, dan membutuhkan eksplorasi mendalam tanpa solusi yang sudah jelas.",
+      "description": "Claude Fable 5.2 adalah model AI paling canggih dari Anthropic, yang dirancang untuk menangani pekerjaan teknis dengan tingkat kesulitan tinggi.\n\nDibandingkan Fable 5.1, model ini membawa peningkatan signifikan dalam kemampuan coding, penalaran (reasoning), dan pemahaman visual.\n\nDalam pengujian sebelum dirilis, Fable 5.2 berhasil menyelesaikan migrasi software yang sebelumnya dianggap hampir mustil, merancang perangkat elektronik yang benar-benar berfungsi dari nol, hingga membantu memecahkan persoalan terbuka di bidang fisika dan matematika.\n\nSelain lebih unggul secara teknis, Fable 5.2 juga mampu memberikan penjelasan yang lebih jelas dan mudah dipahami, dengan kecepatan menghasilkan output hingga 30% lebih tinggi dibandingkan Fable 5.1.\n\nFable 5.2 menggunakan Adaptive Extended Thinking yang selalu aktif, dengan tingkat reasoning mulai dari low hingga max (default: high). Model ini juga mampu mempertahankan proses reasoning antarpercakapan, sehingga lebih konsisten saat mengerjakan tugas kompleks yang membutuhkan banyak tahapan.\n\nMeski demikian, Anthropic tetap merekomendasikan Opus 5.5 untuk kebutuhan coding dan pekerjaan sehari-hari, sementara Fable 5.2 ditujukan untuk tantangan yang jauh lebih kompleks, ambisius, dan membutuhkan eksplorasi mendalam tanpa solusi yang sudah jelas.",
       "modelId": "anthropic/claude-fable-5.2",
       "price": 0,
       "inputPrice": 3,
@@ -313,6 +313,7 @@
       "modelId": "eruu/gemini-hydrogen",
       "apiUrl": "https://vpsai.nekoganz.my.id/v1/chat/completions",
       "apiKeyEnv": "VPSAI_API_KEY",
+      "stream": false,
       "price": 0,
       "inputPrice": 0.75,
       "outputPrice": 3,
