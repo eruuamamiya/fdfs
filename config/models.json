@@ -394,6 +394,29 @@
       "contextWindow": 1000000
     },
     {
+      "_id": "9routes-minimax-m3.1-flash",
+      "name": "minimaxai/minimax-m3.1-flash",
+      "provider": "9ROUTES",
+      "description": "MiniMax-M3.1-Flash (9Routes) adalah model AI multimodal yang dikembangkan oleh MiniMax. Dibandingkan dengan versi sebelumnya, M3, model ini menghadirkan peningkatan performa yang signifikan di berbagai benchmark, terutama dalam tugas agentik yang kompleks, pemrograman (coding), dan keamanan siber (cybersecurity).\n\nModel ini dirancang untuk menangani otomatisasi pekerjaan kolaboratif yang kompleks dan bertahap, memahami struktur codebase nyata, memperbaiki bug, serta mengembangkan fitur baru. Selain itu, MiniMax-M3.1-Flash juga memiliki kemampuan pemahaman dan kreasi visual, termasuk pembuatan antarmuka frontend dan presentasi.\n\nMiniMax-M3.1-Flash merupakan model open-weight dengan arsitektur Mixture-of-Experts (MoE), yang memiliki 23 miliar parameter aktif dari total 428 miliar parameter.",
+      "modelId": "openai-compatible-chat-bbd68281-6e05-40b1-a3b8-1b7ba07dfc80/minimaxai/minimax-m3.1-flash",
+      "apiUrl": "https://9routes.nekoganz.my.id/v1/chat/completions",
+      "apiKeyEnv": "NINEROUTES_API_KEY",
+      "price": 0,
+      "inputPrice": 0.075,
+      "outputPrice": 0.6,
+      "cacheWritePrice": 0,
+      "cacheReadPrice": 0.02,
+      "imageOutputPrice": 0,
+      "capabilities": [
+        "chat",
+        "coding",
+        "openclaw",
+        "hermes",
+        "vision"
+      ],
+      "contextWindow": 1000000
+    },
+    {
       "_id": "6a8e128cb5dad830614e386f",
       "name": "moonshot/kimi-k2.7-code",
       "description": "moonshot/kimi-k2.7-code adalah model AI untuk membantu pengembangan software, analisis kode, dan otomatisasi alur kerja teknis dengan konteks hingga 1.000.000 token. Kapasitas konteks yang besar memudahkan model memahami codebase panjang, dokumentasi proyek, log error, serta banyak file sekaligus tanpa sering kehilangan konteks. Dukungan vision/gambar juga memungkinkan analisis screenshot antarmuka, diagram arsitektur, mockup, dan ilustrasi teknis sebagai bagian dari proses kerja.\nModel ini cocok untuk developer, software engineer, tim QA, AI agent, dan content creator teknis yang membutuhkan bantuan coding secara fleksibel. Gunakan untuk membuat atau merapikan kode, menemukan bug, menjelaskan fungsi kompleks, menulis dokumentasi, menyusun test case, menganalisis desain UI, hingga membangun workflow agen AI berbasis pemrograman. Dengan harga $0,38 per 1 juta token input dan $1,60 per 1 juta token output, moonshot/kimi-k2.7-code menjadi pilihan efisien untuk eksperimen, prototyping, maupun integrasi aplikasi berskala besar.",
