@@ -11,6 +11,7 @@ const MARKUP_3_PERSEN = 1;
 const MAX_FILES_PER_MESSAGE = 10;
 const MAX_SINGLE_FILE_CHARS = 60000;
 const MAX_TOTAL_FILES_CHARS = 120000;
+const MAX_HISTORY_CHARS_CAP = 600000; // Berlaku sama untuk semua model (~150.000 token)
 
 const ALLOWED_CODE_EXTENSIONS = new Set([
   '.js', '.mjs', '.cjs', '.ts', '.tsx', '.jsx',
@@ -79,7 +80,6 @@ function parseSkillMarkdown(rawContent, fallbackName) {
   return { name, description, instructions: body };
 }
 
-// Memindai struktur folder skills/<namaskills>/SKILL.md
 function loadAvailableSkills() {
   const skillsDir = path.join(__dirname, '../skills');
   if (!fs.existsSync(skillsDir)) {
@@ -109,6 +109,33 @@ function loadAvailableSkills() {
 
   skills.sort((a, b) => a.name.localeCompare(b.name));
   return skills;
+}
+
+// Mengambil riwayat percakapan sesuai kapasitas contextWindow masing-masing model (berlaku untuk semua model)
+function buildHistoryMessages(existingMessages, contextWindow = 1000000) {
+  const safeTokenBudget = Math.max(8000, Math.floor((Number(contextWindow) || 1000000) * 0.7));
+  const maxHistoryChars = Math.min(safeTokenBudget * 4, MAX_HISTORY_CHARS_CAP);
+
+  const selected = [];
+  let usedChars = 0;
+
+  for (let i = existingMessages.length - 1; i >= 0; i--) {
+    const msg = existingMessages[i];
+    const content = String(msg.text || '');
+    if (!content) continue;
+
+    if (usedChars + content.length > maxHistoryChars && selected.length > 0) {
+      break;
+    }
+
+    selected.unshift({
+      role: msg.role === 'ai' ? 'assistant' : 'user',
+      content
+    });
+    usedChars += content.length;
+  }
+
+  return selected;
 }
 
 router.get('/models', authMiddleware, (req, res) => {
@@ -232,7 +259,6 @@ router.post('/chat', authMiddleware, async (req, res) => {
   const cleanPrompt = String(prompt || '').trim();
   const clientWantsSse = stream === true;
 
-  // Normalisasi lampiran (mendukung array multi-file maupun single attachment)
   const rawAttachments = Array.isArray(attachments)
     ? attachments
     : attachment
@@ -317,7 +343,7 @@ router.post('/chat', authMiddleware, async (req, res) => {
       String(targetApiUrl || '').toLowerCase().includes('9routes') ||
       String(modelInfo.provider || '').toUpperCase() === '9ROUTES';
 
-    // Upstream 9Routes pakai stream: false, tapi jalur Browser <-> Server tetap SSE + ping agar Cloudflare Tunnel tidak 524
+    // Upstream non-stream jika modelInfo.stream === false atau 9Routes; Browser <-> Express tetap SSE + ping
     const upstreamUseStream = clientWantsSse && modelInfo.stream !== false && !isNineRoutes;
 
     const requestedSkillIds = Array.isArray(skillIds)
@@ -363,14 +389,9 @@ router.post('/chat', authMiddleware, async (req, res) => {
       content: combinedSystemPrompt
     };
 
-    const historyMessages = existingMessages.slice(-12).map(m => ({
-      role: m.role === 'ai' ? 'assistant' : 'user',
-      content: m.text
-    }));
-
+    const historyMessages = buildHistoryMessages(existingMessages, modelInfo.contextWindow);
     const contextMessages = [systemFileInstruction, ...historyMessages];
 
-    // Susun pesan user (teks biasa atau teks + multi-file codingan lampiran)
     let userMessageForApi;
     let savedUserText = cleanPrompt;
 
@@ -413,6 +434,7 @@ router.post('/chat', authMiddleware, async (req, res) => {
       (sum, msg) => sum + String(msg.content || '').length,
       0
     );
+
     const estimatedInputTokens = Math.max(1, Math.ceil(totalContextChars / 4));
     const estimatedInputCostIdr =
       (estimatedInputTokens / 1_000_000) * (modelInfo.inputPrice * MARKUP_3_PERSEN) * kurs;
@@ -484,7 +506,6 @@ router.post('/chat', authMiddleware, async (req, res) => {
 
     const fallbackMessages = [...historyMessages, fallbackUserMessage];
 
-    // Jika frontend pakai SSE, buka stream & kirim ping setiap 15 detik agar Cloudflare Tunnel tidak timeout 524
     if (clientWantsSse) {
       res.setHeader('Content-Type', 'text/event-stream; charset=utf-8');
       res.setHeader('Cache-Control', 'no-cache, no-transform');
@@ -622,7 +643,7 @@ router.post('/chat', authMiddleware, async (req, res) => {
             : Math.max(1, Math.ceil(reply.length / 4))
       };
     } else {
-      // Upstream non-stream (stream: false), termasuk untuk 9Routes
+      // Upstream OpenAI-compatible non-stream (stream: false), termasuk untuk 9Router / vpsai
       let apiRes;
       try {
         apiRes = await axios.post(
@@ -637,7 +658,7 @@ router.post('/chat', authMiddleware, async (req, res) => {
               'Authorization': `Bearer ${targetApiKey}`,
               'Content-Type': 'application/json'
             },
-            timeout: 180000
+            timeout: 210000
           }
         );
       } catch (apiErr) {
@@ -655,7 +676,7 @@ router.post('/chat', authMiddleware, async (req, res) => {
                 'Authorization': `Bearer ${targetApiKey}`,
                 'Content-Type': 'application/json'
               },
-              timeout: 180000
+              timeout: 210000
             }
           );
         } else {
@@ -806,7 +827,7 @@ router.post('/chat', authMiddleware, async (req, res) => {
 
     const friendlyError =
       upstreamStatus === 524
-        ? 'Server upstream AI (9Routes) timeout karena memproses lebih dari 100 detik (HTTP 524). Saldo tidak dipotong.'
+        ? 'Server upstream AI timeout karena memproses lebih dari 100 detik (HTTP 524). Saldo tidak dipotong.'
         : 'Gagal memproses AI. Saldo tidak dipotong.';
 
     if (res.headersSent) {
