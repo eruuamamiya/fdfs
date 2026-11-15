@@ -401,6 +401,7 @@
       "modelId": "openai-compatible-chat-bbd68281-6e05-40b1-a3b8-1b7ba07dfc80/minimaxai/minimax-m3.1-flash",
       "apiUrl": "https://9routes.nekoganz.my.id/v1/chat/completions",
       "apiKeyEnv": "NINEROUTES_API_KEY",
+      "stream": false,
       "price": 0,
       "inputPrice": 0.075,
       "outputPrice": 0.6,
