@@ -1666,7 +1666,8 @@
           .map(m => `<option value="${escapeAttr(m.id)}">${escapeHtml(m.name)}</option>`)
           .join('');
 
-        onSelectModelChange(allModels[0].id);
+        const defaultModel = allModels.find(m => m.isDefault) || allModels[0];
+        onSelectModelChange(defaultModel.id);
         renderPriceList(allModels);
       } catch (err) {
         document.getElementById('modelSelect').innerHTML = '<option value="">Gagal memuat model</option>';
