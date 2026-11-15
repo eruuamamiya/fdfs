@@ -340,6 +340,27 @@
       "contextWindow": 1000000
     },
     {
+      "_id": "vpsai-gemini-hydrogen",
+      "name": "gemweb/gemini-hydrogen",
+      "provider": "VPSAI",
+      "description": "Gemini 4 Hydrogen adalah model AI generasi terbaru dari keluarga Gemini yang dirancang untuk kecepatan tinggi, penalaran mendalam, dan alur kerja coding maupun agentic dengan context window hingga 1.000.000 token. Model ini melampaui kemampuan seri Flash sebelumnya dalam pemahaman instruksi kompleks, analisis dokumen panjang, serta pemrosesan multimodal.\n\nCocok digunakan untuk pengembangan software, debugging, riset, pembuatan konten, hingga otomasi workflow harian yang membutuhkan respons cepat dan akurat.",
+      "modelId": "gemweb/gemini-hydrogen",
+      "apiUrl": "https://vpsai.nekoganz.my.id/v1/chat/completions",
+      "apiKeyEnv": "VPSAI_API_KEY",
+      "price": 0,
+      "inputPrice": 0.75,
+      "outputPrice": 3,
+      "cacheWritePrice": 0,
+      "cacheReadPrice": 0.075,
+      "imageOutputPrice": 0,
+      "capabilities": [
+        "chat",
+        "coding",
+        "vision"
+      ],
+      "contextWindow": 1000000
+    },
+    {
       "_id": "6a8facb336ad7e82c10ee726",
       "name": "glm/glm-5.3-flash",
       "description": "GLM-5.3-Flash adalah model AI berperforma cepat dengan context window hingga 1.000.000 token, ideal untuk memproses dokumen panjang, percakapan kompleks, basis pengetahuan, serta instruksi berlapis dalam satu sesi. Mendukung input gambar, model ini dapat membantu memahami teks visual, tangkapan layar, diagram, dan berbagai materi multimodal. Dengan kemampuan tersebut, GLM-5.3-Flash cocok untuk membangun chatbot, copilot, sistem tanya jawab berbasis dokumen, dan aplikasi AI agent yang membutuhkan konteks luas.\nModel dari Zhipu AI ini dirancang untuk developer, tim produk, content creator, serta bisnis yang ingin mengintegrasikan AI secara efisien. Gunakan untuk merangkum laporan, mengekstrak informasi, menganalisis gambar, menghasilkan ide konten, menyusun draf, atau mengotomatisasi alur kerja berbasis bahasa. Biayanya kompetitif, yaitu $0,075 per 1 juta token input dan $0,25 per 1 juta token output, sehingga sesuai untuk prototipe maupun aplikasi produksi dengan kebutuhan pemrosesan skala besar.",
@@ -378,30 +399,6 @@
       "name": "minimax/minimax-m3.1-flash",
       "description": "MiniMax-M3.1-Flash adalah model AI multimodal yang dikembangkan oleh MiniMax. Dibandingkan dengan versi sebelumnya, M3, model ini menghadirkan peningkatan performa yang signifikan di berbagai benchmark, terutama dalam tugas agentik yang kompleks, pemrograman (coding), dan keamanan siber (cybersecurity).\n\nModel ini dirancang untuk menangani otomatisasi pekerjaan kolaboratif yang kompleks dan bertahap, memahami struktur codebase nyata, memperbaiki bug, serta mengembangkan fitur baru. Selain itu, MiniMax-M3.1-Flash juga memiliki kemampuan pemahaman dan kreasi visual, termasuk pembuatan antarmuka frontend dan presentasi.\n\nMiniMax-M3.1-Flash merupakan model open-weight dengan arsitektur Mixture-of-Experts (MoE), yang memiliki 23 miliar parameter aktif dari total 428 miliar parameter.",
       "modelId": "minimax/minimax-m3.1-flash",
-      "price": 0,
-      "inputPrice": 0.075,
-      "outputPrice": 0.6,
-      "cacheWritePrice": 0,
-      "cacheReadPrice": 0.02,
-      "imageOutputPrice": 0,
-      "capabilities": [
-        "chat",
-        "coding",
-        "openclaw",
-        "hermes",
-        "vision"
-      ],
-      "contextWindow": 1000000
-    },
-    {
-      "_id": "9routes-minimax-m3.1-flash",
-      "name": "minimaxai/minimax-m3.1-flash",
-      "provider": "9ROUTES",
-      "description": "MiniMax-M3.1-Flash (9Routes) adalah model AI multimodal yang dikembangkan oleh MiniMax. Dibandingkan dengan versi sebelumnya, M3, model ini menghadirkan peningkatan performa yang signifikan di berbagai benchmark, terutama dalam tugas agentik yang kompleks, pemrograman (coding), dan keamanan siber (cybersecurity).\n\nModel ini dirancang untuk menangani otomatisasi pekerjaan kolaboratif yang kompleks dan bertahap, memahami struktur codebase nyata, memperbaiki bug, serta mengembangkan fitur baru. Selain itu, MiniMax-M3.1-Flash juga memiliki kemampuan pemahaman dan kreasi visual, termasuk pembuatan antarmuka frontend dan presentasi.\n\nMiniMax-M3.1-Flash merupakan model open-weight dengan arsitektur Mixture-of-Experts (MoE), yang memiliki 23 miliar parameter aktif dari total 428 miliar parameter.",
-      "modelId": "openai-compatible-chat-bbd68281-6e05-40b1-a3b8-1b7ba07dfc80/minimaxai/minimax-m3.1-flash",
-      "apiUrl": "https://9routes.nekoganz.my.id/v1/chat/completions",
-      "apiKeyEnv": "NINEROUTES_API_KEY",
-      "stream": false,
       "price": 0,
       "inputPrice": 0.075,
       "outputPrice": 0.6,
