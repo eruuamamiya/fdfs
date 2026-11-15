@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const fs = require('fs');
 const path = require('path');
 
 const app = express();
@@ -8,6 +9,21 @@ const PORT = process.env.PORT || 3001;
 app.use(express.json({ limit: '15mb' }));
 app.use(express.urlencoded({ extended: true, limit: '15mb' }));
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Serve /icon.png dari folder di luar public
+app.get('/icon.png', (req, res) => {
+  const candidates = [
+    path.join(__dirname, 'src', 'icon.png'),
+    path.join(__dirname, 'icon', 'icon.png'),
+    path.join(__dirname, 'src', 'icon', 'icon.png')
+  ];
+
+  const iconFile = candidates.find(filePath => fs.existsSync(filePath));
+  if (iconFile) {
+    return res.sendFile(iconFile);
+  }
+  res.status(404).send('Icon tidak ditemukan');
+});
 
 // Routes
 const authRoutes = require('./routes/auth');
