@@ -159,6 +159,7 @@ router.get('/models', authMiddleware, (req, res) => {
       description: m.description,
       capabilities: m.capabilities || [],
       contextWindow: m.contextWindow,
+      isDefault: Boolean(m.isDefault),
       inputUsd1M,
       outputUsd1M,
       inputIdr1M,
