@@ -340,12 +340,11 @@ router.post('/chat', authMiddleware, async (req, res) => {
       modelInfo.apiKey ||
       process.env.AI_API_KEY;
 
-    const isNineRoutes =
-      String(targetApiUrl || '').toLowerCase().includes('9routes') ||
-      String(modelInfo.provider || '').toUpperCase() === '9ROUTES';
+    const upstreamModelName = modelInfo.upstreamModelId || modelInfo.modelId;
 
-    // Upstream non-stream jika modelInfo.stream === false atau 9Routes; Browser <-> Express tetap SSE + ping
-    const upstreamUseStream = clientWantsSse && modelInfo.stream !== false && !isNineRoutes;
+    // Berlaku untuk SEMUA model (termasuk 9Routes dan gemini-hydrogen)
+    // Selalu gunakan stream jika client meminta SSE agar heartbeat menjaga koneksi Cloudflare tetap hidup
+    const upstreamUseStream = clientWantsSse && modelInfo.stream !== false;
 
     const requestedSkillIds = Array.isArray(skillIds)
       ? [...new Set(skillIds.map(id => String(id || '').trim()).filter(Boolean))]
@@ -370,6 +369,15 @@ router.post('/chat', authMiddleware, async (req, res) => {
         isNewConversation = false;
       }
     }
+
+    // Room ID unik per user & percakapan agar tab browser di gemini_api.py terisolasi
+    const uniqueRoomId = `${req.user.id}-${convRef.id}`;
+
+    const upstreamHeaders = {
+      'Authorization': `Bearer ${targetApiKey}`,
+      'Content-Type': 'application/json',
+      'X-Room-ID': uniqueRoomId
+    };
 
     const baseFilePrompt =
       'Jika pengguna meminta untuk membuatkan atau mengirimkan file (misalnya file codingan, teks, JSON, HTML, CSS, SQL, Markdown, dll.), sertakan seluruh isi file tersebut di dalam blok kode markdown dengan format ```bahasa:namafile.ekstensi (contoh: ```javascript:index.js atau ```python:app.py atau ```txt:catatan.txt). Jika isi file tersebut mengandung blok kode tiga backtick (```), bungkus blok terluarnya dengan empat backtick (````bahasa:namafile.ekstensi) agar tidak terpotong.';
@@ -531,18 +539,15 @@ router.post('/chat', authMiddleware, async (req, res) => {
         upstreamStreamRes = await axios.post(
           targetApiUrl,
           {
-            model: modelInfo.modelId,
+            model: upstreamModelName,
             messages: contextMessages,
             stream: true,
             stream_options: { include_usage: true }
           },
           {
-            headers: {
-              'Authorization': `Bearer ${targetApiKey}`,
-              'Content-Type': 'application/json'
-            },
+            headers: upstreamHeaders,
             responseType: 'stream',
-            timeout: 180000
+            timeout: 300000
           }
         );
       } catch (streamInitErr) {
@@ -551,17 +556,14 @@ router.post('/chat', authMiddleware, async (req, res) => {
           upstreamStreamRes = await axios.post(
             targetApiUrl,
             {
-              model: modelInfo.modelId,
+              model: upstreamModelName,
               messages: fallbackMessages,
               stream: true
             },
             {
-              headers: {
-                'Authorization': `Bearer ${targetApiKey}`,
-                'Content-Type': 'application/json'
-              },
+              headers: upstreamHeaders,
               responseType: 'stream',
-              timeout: 180000
+              timeout: 300000
             }
           );
         } else {
@@ -581,6 +583,7 @@ router.post('/chat', authMiddleware, async (req, res) => {
 
           for (const rawLine of lines) {
             const line = rawLine.trim();
+            // Abaikan baris heartbeat kosong (:) dari gemini_api.py / 9Router
             if (!line || !line.startsWith('data:')) continue;
 
             const dataStr = line.slice(5).trim();
@@ -644,22 +647,18 @@ router.post('/chat', authMiddleware, async (req, res) => {
             : Math.max(1, Math.ceil(reply.length / 4))
       };
     } else {
-      // Upstream OpenAI-compatible non-stream (stream: false), termasuk untuk 9Router / vpsai
       let apiRes;
       try {
         apiRes = await axios.post(
           targetApiUrl,
           {
-            model: modelInfo.modelId,
+            model: upstreamModelName,
             messages: contextMessages,
             stream: false
           },
           {
-            headers: {
-              'Authorization': `Bearer ${targetApiKey}`,
-              'Content-Type': 'application/json'
-            },
-            timeout: 210000
+            headers: upstreamHeaders,
+            timeout: 300000
           }
         );
       } catch (apiErr) {
@@ -668,16 +667,13 @@ router.post('/chat', authMiddleware, async (req, res) => {
           apiRes = await axios.post(
             targetApiUrl,
             {
-              model: modelInfo.modelId,
+              model: upstreamModelName,
               messages: fallbackMessages,
               stream: false
             },
             {
-              headers: {
-                'Authorization': `Bearer ${targetApiKey}`,
-                'Content-Type': 'application/json'
-              },
-              timeout: 210000
+              headers: upstreamHeaders,
+              timeout: 300000
             }
           );
         } else {
