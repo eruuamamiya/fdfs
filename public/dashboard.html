@@ -907,15 +907,15 @@
 
     function escapeHtml(str) {
       return String(str || '')
-        .replace(/&/g, '&')
-        .replace(/</g, '<')
-        .replace(/>/g, '>');
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
     }
 
     function escapeAttr(str) {
       return escapeHtml(str)
-        .replace(/"/g, '"')
-        .replace(/\x27/g, ''');
+        .replace(/"/g, '&quot;')
+        .replace(/\x27/g, '&#39;');
     }
 
     function copyCodeBlock(codeId, btnEl) {
@@ -1101,10 +1101,10 @@
           continue;
         }
 
-        if (/^>\s?/.test(trimmed)) {
+        if (/^&gt;\s?/.test(trimmed)) {
           const quoteLines = [];
-          while (i < lines.length && /^>\s?/.test(lines[i].trim())) {
-            quoteLines.push(applyInlineMarkdown(lines[i].trim().replace(/^>\s?/, '')));
+          while (i < lines.length && /^&gt;\s?/.test(lines[i].trim())) {
+            quoteLines.push(applyInlineMarkdown(lines[i].trim().replace(/^&gt;\s?/, '')));
             i++;
           }
           htmlBlocks.push(
@@ -1142,7 +1142,7 @@
             !cur ||
             /^(?:---|\*\*\*|___)$/.test(cur) ||
             /^#{1,4}\s+/.test(cur) ||
-            /^>\s?/.test(cur) ||
+            /^&gt;\s?/.test(cur) ||
             /^[-*]\s+/.test(cur) ||
             /^\d+\.\s+/.test(cur) ||
             (cur.includes('|') && i + 1 < lines.length && isTableSeparatorLine(lines[i + 1]))
@@ -1466,7 +1466,7 @@
         container.innerHTML = `
           <div class="text-center py-8 px-4">
             <p class="text-xs text-slate-400 font-medium">Belum ada skill di server.</p>
-            <p class="text-[11px] text-slate-500 mt-1">Tambahkan file dengan struktur <code class="text-indigo-300">skills/<namaskills>/SKILL.md</code> di server.</p>
+            <p class="text-[11px] text-slate-500 mt-1">Tambahkan file dengan struktur <code class="text-indigo-300">skills/&lt;namaskills&gt;/SKILL.md</code> di server.</p>
           </div>
         `;
         return;
