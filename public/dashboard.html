@@ -594,16 +594,6 @@
               <span id="detailModelContext" class="text-sm font-semibold text-slate-200">1,000,000 tokens</span>
             </div>
           </div>
-
-          <div class="pt-2">
-            <button
-              type="button"
-              id="btnUseModelFromDetail"
-              class="w-full bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold py-2.5 px-4 rounded-xl transition"
-            >
-              Gunakan Model Ini di Chat
-            </button>
-          </div>
         </div>
       </div>
 
@@ -1853,12 +1843,6 @@
       document.getElementById('detailModelInputPrice').textContent = `${formatRupiah(m.inputIdr1M)} / 1M tokens`;
       document.getElementById('detailModelOutputPrice').textContent = `${formatRupiah(m.outputIdr1M)} / 1M tokens`;
       document.getElementById('detailModelContext').textContent = `${Number(m.contextWindow || 1000000).toLocaleString('en-US')} tokens`;
-
-      const useBtn = document.getElementById('btnUseModelFromDetail');
-      useBtn.onclick = () => {
-        onSelectModelChange(m.id);
-        switchPage('chat');
-      };
 
       document.getElementById('modelsListView').classList.add('hidden');
       document.getElementById('modelDetailView').classList.remove('hidden');
