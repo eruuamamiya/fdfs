@@ -521,11 +521,11 @@
     </div>
   </section>
 
-  <!-- ==================== HALAMAN 3: LIST MODEL & DETAIL MODEL (SEPERTI FOTO 2 & 3) ==================== -->
+  <!-- ==================== HALAMAN 3: LIST MODEL & DETAIL MODEL ==================== -->
   <section id="page-models" class="hidden flex-1 w-full overflow-y-auto overflow-x-hidden px-4 py-6">
     <div class="max-w-2xl mx-auto">
 
-      <!-- VIEW A: LIST MODELS (FOTO 2) -->
+      <!-- VIEW A: LIST MODELS -->
       <div id="modelsListView" class="space-y-4">
         <div>
           <h1 class="text-2xl font-bold text-white tracking-tight">Models</h1>
@@ -549,7 +549,7 @@
         </div>
       </div>
 
-      <!-- VIEW B: DETAIL MODEL (FOTO 3) -->
+      <!-- VIEW B: DETAIL MODEL -->
       <div id="modelDetailView" class="hidden space-y-5 pb-8 select-text">
         <div class="flex items-center gap-3">
           <button
@@ -913,7 +913,9 @@
     }
 
     function escapeAttr(str) {
-      return escapeHtml(str).replace(/"/g, '"').replace(/'/g, ''');
+      return escapeHtml(str)
+        .replace(/"/g, '"')
+        .replace(/\x27/g, ''');
     }
 
     function copyCodeBlock(codeId, btnEl) {
@@ -1212,7 +1214,6 @@
       `;
     }
 
-    // Normalisasi jika Gemini menulis ```lang menempel di ujung kalimat (seperti di foto 1: "...elegan). ```html")
     function normalizeInlineCodeFences(rawText) {
       return String(rawText || '').replace(
         /([^\r\n`])\s*(`{3,})([a-zA-Z0-9_.:-]+)\s*(?=\r?\n)/g,
@@ -1220,7 +1221,6 @@
       );
     }
 
-    // State-machine parser berbasis baris: aman terhadap ``` di dalam string kode maupun inline fence
     function renderMessageContent(text, isUser) {
       const raw = String(text || '');
       if (isUser) {
@@ -1746,7 +1746,7 @@
       }
     }
 
-    // ==================== LIST & DETAIL MODEL (SEPERTI FOTO 2 & 3) ====================
+    // ==================== LIST & DETAIL MODEL ====================
     function getProviderChipBadge(providerRaw) {
       const p = String(providerRaw || '').toUpperCase();
       let colorClass = 'bg-rose-500/15 border-rose-500/30 text-rose-400';
