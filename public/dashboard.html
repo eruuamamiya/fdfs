@@ -521,29 +521,92 @@
     </div>
   </section>
 
-  <!-- ==================== HALAMAN 3: LIST MODEL & HARGA ==================== -->
+  <!-- ==================== HALAMAN 3: LIST MODEL & DETAIL MODEL (SEPERTI FOTO 2 & 3) ==================== -->
   <section id="page-models" class="hidden flex-1 w-full overflow-y-auto overflow-x-hidden px-4 py-6">
-    <div class="max-w-5xl mx-auto space-y-5">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+    <div class="max-w-2xl mx-auto">
+
+      <!-- VIEW A: LIST MODELS (FOTO 2) -->
+      <div id="modelsListView" class="space-y-4">
         <div>
-          <h1 class="text-xl font-bold text-white">Katalog Model AI & Daftar Harga</h1>
-          <p class="text-xs text-slate-400">Tarif dihitung per 1.000.000 (1M) token. Penggantian model dilakukan lewat dropdown di sebelah tombol kirim.</p>
+          <h1 class="text-2xl font-bold text-white tracking-tight">Models</h1>
+        </div>
+
+        <div class="relative">
+          <svg class="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M17 11a6 6 0 11-12 0 6 6 0 0112 0z" />
+          </svg>
+          <input
+            type="text"
+            id="priceSearchInput"
+            oninput="filterPriceList()"
+            placeholder="Search models..."
+            class="w-full bg-slate-900/90 border border-slate-800 rounded-xl pl-10 pr-4 py-2.5 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition"
+          />
+        </div>
+
+        <div id="priceListContainer" class="bg-slate-900/80 border border-slate-800 rounded-2xl divide-y divide-slate-800/80 overflow-hidden select-text">
+          <p class="text-sm text-slate-500 text-center py-10">Memuat daftar model...</p>
         </div>
       </div>
 
-      <div>
-        <input
-          type="text"
-          id="priceSearchInput"
-          oninput="filterPriceList()"
-          placeholder="Cari nama model, provider (OpenAI, Anthropic, Google, DeepSeek), atau deskripsi..."
-          class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-indigo-500"
-        />
+      <!-- VIEW B: DETAIL MODEL (FOTO 3) -->
+      <div id="modelDetailView" class="hidden space-y-5 pb-8 select-text">
+        <div class="flex items-center gap-3">
+          <button
+            type="button"
+            onclick="closeModelDetail()"
+            class="p-2 -ml-2 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800/80 transition shrink-0"
+            title="Kembali ke daftar model"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+          </button>
+
+          <div id="detailModelIcon" class="w-9 h-9 rounded-lg flex items-center justify-center shrink-0"></div>
+
+          <h1 id="detailModelName" class="text-lg sm:text-xl font-bold text-white truncate">
+            -
+          </h1>
+        </div>
+
+        <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-5 space-y-5">
+          <div>
+            <span class="text-xs font-medium text-slate-400 block mb-2">Description</span>
+            <p id="detailModelDescription" class="text-sm text-slate-200 leading-relaxed whitespace-pre-line">
+              -
+            </p>
+          </div>
+
+          <div class="pt-4 border-t border-slate-800/90 space-y-4">
+            <div>
+              <span class="text-xs font-medium text-slate-400 block mb-1">Input Price</span>
+              <span id="detailModelInputPrice" class="text-base font-bold text-white">Rp 0 / 1M tokens</span>
+            </div>
+
+            <div>
+              <span class="text-xs font-medium text-slate-400 block mb-1">Output Price</span>
+              <span id="detailModelOutputPrice" class="text-base font-bold text-white">Rp 0 / 1M tokens</span>
+            </div>
+
+            <div>
+              <span class="text-xs font-medium text-slate-400 block mb-1">Context Window</span>
+              <span id="detailModelContext" class="text-sm font-semibold text-slate-200">1,000,000 tokens</span>
+            </div>
+          </div>
+
+          <div class="pt-2">
+            <button
+              type="button"
+              id="btnUseModelFromDetail"
+              class="w-full bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold py-2.5 px-4 rounded-xl transition"
+            >
+              Gunakan Model Ini di Chat
+            </button>
+          </div>
+        </div>
       </div>
 
-      <div id="priceListContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5 pb-6 select-text">
-        <p class="text-sm text-slate-500 col-span-full text-center py-10">Memuat daftar model...</p>
-      </div>
     </div>
   </section>
 
@@ -560,7 +623,7 @@
           </div>
           <p class="text-xs text-slate-400 mt-0.5">Centang tombol ceklis pada satu atau beberapa skill yang ingin dipakai</p>
         </div>
-        <button type="button" onclick="closeSkillsModal()" class="text-slate-400 hover:text-white text-xl leading-none p-1">&times;</button>
+        <button type="button" onclick="closeSkillsModal()" class="text-slate-400 hover:text-white text-xl leading-none p-1">×</button>
       </div>
 
       <div class="my-3 shrink-0">
@@ -613,7 +676,7 @@
           <h3 class="text-lg font-bold text-white">Top-Up Saldo Token</h3>
           <p class="text-xs text-slate-400">Pembayaran otomatis</p>
         </div>
-        <button type="button" onclick="closeTopupModal()" class="text-slate-400 hover:text-white text-xl leading-none">&times;</button>
+        <button type="button" onclick="closeTopupModal()" class="text-slate-400 hover:text-white text-xl leading-none">×</button>
       </div>
 
       <label class="block text-xs font-medium text-slate-400 mb-2">Pilih Nominal Cepat</label>
@@ -771,7 +834,34 @@
       return ALLOWED_CODE_EXTENSIONS.includes(ext);
     }
 
-    function resolveBlockInfo(headerRaw, precedingText) {
+    function detectLanguageFromContent(code) {
+      const s = String(code || '').trim();
+      if (!s) return '';
+
+      if (/^<!DOCTYPE html/i.test(s) || /<html[\s>]/i.test(s) || /<\/(div|body|head|script|style)>/i.test(s)) {
+        return 'html';
+      }
+      if ((s.startsWith('{') && s.endsWith('}')) || (s.startsWith('[') && s.endsWith(']'))) {
+        try {
+          JSON.parse(s);
+          return 'json';
+        } catch (_) {}
+      }
+      if (/^<\?php/i.test(s)) return 'php';
+      if (/^(import\s+\w+|from\s+\w+\s+import|def\s+\w+\s*\(|class\s+\w+.*:)/m.test(s)) return 'python';
+      if (/^(const|let|var|function|async\s+function|import\s+.*from|export\s+(default|const|function)|require\()/m.test(s)) {
+        return 'javascript';
+      }
+      if (/^(SELECT|INSERT\s+INTO|UPDATE\s+\w+\s+SET|DELETE\s+FROM|CREATE\s+TABLE)\b/im.test(s)) return 'sql';
+      if (/^(#!\/bin\/(ba)?sh|sudo\s+|apt(-get)?\s+|npm\s+|pip3?\s+|docker\s+|systemctl\s+)/m.test(s)) return 'bash';
+      if (/^package\s+main\b/m.test(s) || /^func\s+\w+\s*\(/m.test(s)) return 'go';
+      if (/^#include\s+<.+>/m.test(s)) return 'cpp';
+      if (/^(\.|#)[a-zA-Z0-9_-]+\s*\{/m.test(s) && s.includes(':') && s.includes(';')) return 'css';
+
+      return '';
+    }
+
+    function resolveBlockInfo(headerRaw, precedingText, codeContent = '') {
       const header = String(headerRaw || '').trim();
       let lang = 'code';
       let fileName = '';
@@ -797,7 +887,11 @@
       }
 
       if (!fileName) {
-        const mapped = LANG_FILE_MAP[lang.toLowerCase()];
+        let mapped = LANG_FILE_MAP[lang.toLowerCase()];
+        if (!mapped && codeContent) {
+          const guessedLang = detectLanguageFromContent(codeContent);
+          if (guessedLang) mapped = LANG_FILE_MAP[guessedLang];
+        }
         fileName = mapped || 'file.txt';
       }
 
@@ -813,13 +907,13 @@
 
     function escapeHtml(str) {
       return String(str || '')
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;');
+        .replace(/&/g, '&')
+        .replace(/</g, '<')
+        .replace(/>/g, '>');
     }
 
     function escapeAttr(str) {
-      return escapeHtml(str).replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+      return escapeHtml(str).replace(/"/g, '"').replace(/'/g, ''');
     }
 
     function copyCodeBlock(codeId, btnEl) {
@@ -898,21 +992,13 @@
     function applyInlineMarkdown(escapedText) {
       let s = escapedText;
 
-      // Link [label](https://...)
       s = s.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, (_, label, url) => {
         return `<a href="${escapeAttr(url)}" target="_blank" rel="noopener noreferrer" class="text-indigo-400 hover:text-indigo-300 underline break-all">${label}</a>`;
       });
 
-      // Bold + Italic ***text***
       s = s.replace(/\*\*\*([^*]+?)\*\*\*/g, '<strong class="font-bold text-white"><em class="italic">$1</em></strong>');
-
-      // Bold **text**
       s = s.replace(/\*\*([^*]+?)\*\*/g, '<strong class="font-semibold text-white">$1</strong>');
-
-      // Italic *text*
       s = s.replace(/(^|[^\*])\*([^*\n]+?)\*(?!\*)/g, '$1<em class="italic text-slate-200">$2</em>');
-
-      // Strikethrough ~~text~~
       s = s.replace(/~~([^~]+?)~~/g, '<del class="line-through text-slate-400">$1</del>');
 
       return s;
@@ -1013,10 +1099,10 @@
           continue;
         }
 
-        if (/^&gt;\s?/.test(trimmed)) {
+        if (/^>\s?/.test(trimmed)) {
           const quoteLines = [];
-          while (i < lines.length && /^&gt;\s?/.test(lines[i].trim())) {
-            quoteLines.push(applyInlineMarkdown(lines[i].trim().replace(/^&gt;\s?/, '')));
+          while (i < lines.length && /^>\s?/.test(lines[i].trim())) {
+            quoteLines.push(applyInlineMarkdown(lines[i].trim().replace(/^>\s?/, '')));
             i++;
           }
           htmlBlocks.push(
@@ -1054,7 +1140,7 @@
             !cur ||
             /^(?:---|\*\*\*|___)$/.test(cur) ||
             /^#{1,4}\s+/.test(cur) ||
-            /^&gt;\s?/.test(cur) ||
+            /^>\s?/.test(cur) ||
             /^[-*]\s+/.test(cur) ||
             /^\d+\.\s+/.test(cur) ||
             (cur.includes('|') && i + 1 < lines.length && isTableSeparatorLine(lines[i + 1]))
@@ -1077,7 +1163,7 @@
     }
 
     function buildCodeBlockHtml(headerRaw, codeContent, precedingText, isUnclosedStream = false) {
-      const { fileName } = resolveBlockInfo(headerRaw, precedingText);
+      const { fileName } = resolveBlockInfo(headerRaw, precedingText, codeContent);
       const codeId = `code_${++codeBlockCounter}`;
       codeBlockStore[codeId] = { code: codeContent, fileName };
 
@@ -1126,14 +1212,23 @@
       `;
     }
 
-    // State-machine parser berbasis baris: aman terhadap ``` di dalam string kode maupun '''
+    // Normalisasi jika Gemini menulis ```lang menempel di ujung kalimat (seperti di foto 1: "...elegan). ```html")
+    function normalizeInlineCodeFences(rawText) {
+      return String(rawText || '').replace(
+        /([^\r\n`])\s*(`{3,})([a-zA-Z0-9_.:-]+)\s*(?=\r?\n)/g,
+        '$1\n$2$3'
+      );
+    }
+
+    // State-machine parser berbasis baris: aman terhadap ``` di dalam string kode maupun inline fence
     function renderMessageContent(text, isUser) {
       const raw = String(text || '');
       if (isUser) {
         return escapeHtml(raw).replace(/\n/g, '<br>');
       }
 
-      const lines = raw.split(/\r?\n/);
+      const normalized = normalizeInlineCodeFences(raw);
+      const lines = normalized.split(/\r?\n/);
       let resultHtml = '';
       let markdownBuffer = [];
       let lastPrecedingText = '';
@@ -1371,7 +1466,7 @@
         container.innerHTML = `
           <div class="text-center py-8 px-4">
             <p class="text-xs text-slate-400 font-medium">Belum ada skill di server.</p>
-            <p class="text-[11px] text-slate-500 mt-1">Tambahkan file dengan struktur <code class="text-indigo-300">skills/&lt;namaskills&gt;/SKILL.md</code> di server.</p>
+            <p class="text-[11px] text-slate-500 mt-1">Tambahkan file dengan struktur <code class="text-indigo-300">skills/<namaskills>/SKILL.md</code> di server.</p>
           </div>
         `;
         return;
@@ -1446,7 +1541,7 @@
             onclick="removeSelectedSkill('${escapeAttr(s.id)}')"
             class="text-amber-300/70 hover:text-rose-400 ml-0.5 font-bold leading-none shrink-0"
             title="Hapus skill"
-          >&times;</button>
+          >×</button>
         </span>
       `).join('');
     }
@@ -1486,6 +1581,10 @@
 
       if (pageName === 'profile') {
         document.getElementById('profileSaveFeedback')?.classList.add('hidden');
+      }
+
+      if (pageName === 'models') {
+        closeModelDetail();
       }
 
       toggleSidebar(false);
@@ -1647,6 +1746,32 @@
       }
     }
 
+    // ==================== LIST & DETAIL MODEL (SEPERTI FOTO 2 & 3) ====================
+    function getProviderChipBadge(providerRaw) {
+      const p = String(providerRaw || '').toUpperCase();
+      let colorClass = 'bg-rose-500/15 border-rose-500/30 text-rose-400';
+      if (p.includes('GEMINI') || p.includes('GOOGLE')) {
+        colorClass = 'bg-sky-500/15 border-sky-500/30 text-sky-400';
+      } else if (p.includes('OPENAI') || p.includes('GPT')) {
+        colorClass = 'bg-emerald-500/15 border-emerald-500/30 text-emerald-400';
+      } else if (p.includes('DEEPSEEK')) {
+        colorClass = 'bg-indigo-500/15 border-indigo-500/30 text-indigo-400';
+      } else if (p.includes('QWEN') || p.includes('ALIBABA')) {
+        colorClass = 'bg-amber-500/15 border-amber-500/30 text-amber-400';
+      }
+
+      return {
+        colorClass,
+        svg: `
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <rect x="6" y="6" width="12" height="12" rx="2" stroke-width="1.8" />
+            <rect x="9.5" y="9.5" width="5" height="5" rx="0.8" stroke-width="1.8" />
+            <path stroke-linecap="round" stroke-width="1.8" d="M9 3v3M15 3v3M9 18v3M15 18v3M3 9h3M3 15h3M18 9h3M18 15h3" />
+          </svg>
+        `
+      };
+    }
+
     async function loadModels() {
       try {
         const res = await fetch('/api/ai/models', {
@@ -1672,7 +1797,7 @@
       } catch (err) {
         document.getElementById('modelSelect').innerHTML = '<option value="">Gagal memuat model</option>';
         document.getElementById('priceListContainer').innerHTML =
-          '<p class="text-sm text-rose-400 col-span-full text-center py-6">Gagal memuat list model.</p>';
+          '<p class="text-sm text-rose-400 text-center py-6">Gagal memuat list model.</p>';
       }
     }
 
@@ -1686,44 +1811,63 @@
     function renderPriceList(list) {
       const container = document.getElementById('priceListContainer');
       if (list.length === 0) {
-        container.innerHTML = '<p class="text-sm text-slate-500 col-span-full text-center py-8">Model tidak ditemukan.</p>';
+        container.innerHTML = '<p class="text-sm text-slate-500 text-center py-8">Model tidak ditemukan.</p>';
         return;
       }
 
       container.innerHTML = list.map(m => {
         const isActive = selectedModel && selectedModel.id === m.id;
+        const badge = getProviderChipBadge(m.provider);
         return `
-          <div
-            class="rounded-2xl p-4 border flex flex-col justify-between ${
-              isActive
-                ? 'bg-indigo-600/10 border-indigo-500/70'
-                : 'bg-slate-900 border-slate-800'
-            }"
+          <button
+            type="button"
+            onclick="openModelDetail('${escapeAttr(m.id)}')"
+            class="w-full px-4 py-3.5 flex items-center justify-between gap-3 text-left hover:bg-slate-800/70 transition cursor-pointer"
           >
-            <div>
-              <div class="flex items-center justify-between gap-2 mb-2">
-                <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-slate-800 text-indigo-300">
-                  ${escapeHtml(m.provider)}
-                </span>
-                ${isActive ? '<span class="text-[10px] font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-2 py-0.5 rounded-full">Dipakai</span>' : ''}
+            <div class="flex items-center gap-3.5 min-w-0">
+              <div class="w-8 h-8 rounded-lg border ${badge.colorClass} flex items-center justify-center shrink-0">
+                ${badge.svg}
               </div>
-              <h3 class="font-bold text-sm text-slate-100 mb-1">${escapeHtml(m.name)}</h3>
-              <p class="text-xs text-slate-400 mb-3">${escapeHtml(m.description || 'Model AI siap pakai.')}</p>
+              <span class="font-semibold text-sm text-slate-100 truncate">${escapeHtml(m.name)}</span>
             </div>
-
-            <div class="grid grid-cols-2 gap-2 text-xs pt-3 border-t border-slate-800/90 w-full">
-              <div>
-                <span class="text-[11px] text-slate-500 block">Input / 1M Token</span>
-                <span class="text-emerald-400 font-bold">${formatRupiah(m.inputIdr1M)}</span>
-              </div>
-              <div>
-                <span class="text-[11px] text-slate-500 block">Output / 1M Token</span>
-                <span class="text-amber-400 font-bold">${formatRupiah(m.outputIdr1M)}</span>
-              </div>
-            </div>
-          </div>
+            ${isActive
+              ? '<span class="text-[10px] font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-2 py-0.5 rounded-full shrink-0">Dipakai</span>'
+              : '<svg class="w-4 h-4 text-slate-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>'
+            }
+          </button>
         `;
       }).join('');
+    }
+
+    function openModelDetail(modelId) {
+      const m = allModels.find(item => item.id === modelId);
+      if (!m) return;
+
+      const badge = getProviderChipBadge(m.provider);
+      const iconEl = document.getElementById('detailModelIcon');
+      iconEl.className = `w-9 h-9 rounded-lg border ${badge.colorClass} flex items-center justify-center shrink-0`;
+      iconEl.innerHTML = badge.svg;
+
+      document.getElementById('detailModelName').textContent = m.name;
+      document.getElementById('detailModelDescription').textContent = m.description || 'Model AI siap pakai.';
+      document.getElementById('detailModelInputPrice').textContent = `${formatRupiah(m.inputIdr1M)} / 1M tokens`;
+      document.getElementById('detailModelOutputPrice').textContent = `${formatRupiah(m.outputIdr1M)} / 1M tokens`;
+      document.getElementById('detailModelContext').textContent = `${Number(m.contextWindow || 1000000).toLocaleString('en-US')} tokens`;
+
+      const useBtn = document.getElementById('btnUseModelFromDetail');
+      useBtn.onclick = () => {
+        onSelectModelChange(m.id);
+        switchPage('chat');
+      };
+
+      document.getElementById('modelsListView').classList.add('hidden');
+      document.getElementById('modelDetailView').classList.remove('hidden');
+      document.getElementById('page-models').scrollTop = 0;
+    }
+
+    function closeModelDetail() {
+      document.getElementById('modelDetailView')?.classList.add('hidden');
+      document.getElementById('modelsListView')?.classList.remove('hidden');
     }
 
     function filterPriceList() {
@@ -1914,7 +2058,7 @@
             onclick="removeAttachment(${idx})"
             class="text-slate-400 hover:text-rose-400 font-bold leading-none pl-0.5 shrink-0"
             title="Hapus ${escapeAttr(att.name)}"
-          >&times;</button>
+          >×</button>
         </div>
       `).join('');
     }
